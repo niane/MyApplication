@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.yzg.myapplication"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    //签名
+    signingConfigs {
+        debug {
+
+        }
+        release {
+            storeFile file("../demo_keystore.jks")
+            storePassword "123456"
+            keyAlias "demo_myapp"
+            keyPassword "123456"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    productFlavors{
+        beta {
+            applicationIdSuffix ".beta"
+            resValue "string", "app_name", "\"AppBeta\""
+        }
+
+        rel {
+            resValue "string", "app_name", "\"AppRelease\""
+        }
+    }
+
+    productFlavors.all {
+        flavor -> flavor.buildConfigField("String", "APP_FLAVORS", "\"" + name + "\"")
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = "myapp_v${variant.versionName}_${variant.flavorName}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile deps.junit
+    compile deps.cardview
+    compile deps.rxandroid
+    compile deps.retrofit
+    compile deps.converterGson
+    compile deps.rxjavaAdapter
+    compile deps.logging_interceptor
+    compile deps.circleimageview
+    compile deps.greendao
+    compile deps.pulltorefresh
+    compile deps.simplerecyclerview
+    compile deps.simplecalendarview
+
+    compile project(':common')
+    compile files('src/main/lib/ormlite-android-5.0.jar')
+    compile files('src/main/lib/ormlite-core-5.0.jar')
+
+}

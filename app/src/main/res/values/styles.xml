@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="toolBarTitleTextAppearance">@style/App.ToolBar.TextAppearance.Title</item>
+        
+        <item name="toolbarStyle">@style/App.ToolBar</item>
+
+        <item name="homeAsUpIndicator">@drawable/back</item>
+
+        <!--action menu-->
+        <item name="actionMenuTextColor">@color/White</item>
+        <item name="actionMenuTextAppearance">@style/App.Action.TextAppearance.menu</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+
+    <!--============ ToolBar ============-->
+    <style name="App.ToolBar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimaryDark</item>
+        <item name="titleTextAppearance">?attr/toolBarTitleTextAppearance</item>
+    </style>
+
+    <!--============ ToolBar title============-->
+    <style name="App.ToolBar.TextAppearance.Title" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--============ ToolBar menu============-->
+    <style name="App.Action.TextAppearance.menu" parent="@style/TextAppearance.AppCompat.Menu">
+        <item name="android:textColor">@color/White</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>
