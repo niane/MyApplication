@@ -2,6 +2,7 @@ package com.yzg.myapplication.inject.component;
 
 import com.yzg.myapplication.fragment.RecyclerFragmentTest;
 import com.yzg.myapplication.inject.scope.FragmentScope;
+import com.yzg.myapplication.widget.linkedmenu.AreaMenuFragment;
 
 import dagger.Component;
 

@@ -40,6 +40,7 @@
         <activity android:name=".ui.LinkedMenuTest" />
         <activity android:name=".ui.ExampleMvp" />
         <activity android:name=".test.TextureViewTest" android:screenOrientation="landscape"/>
+        <activity android:name=".ui.ImageWaterActivity" />
     </application>
 
 </manifest>

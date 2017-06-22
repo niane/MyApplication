@@ -1,8 +1,5 @@
 package com.yzg.myapplication.app;
 
-import android.content.Context;
-import android.support.multidex.MultiDex;
-
 import com.yzg.common.app.YApplication;
 import com.yzg.common.util.YLog;
 import com.yzg.myapplication.BuildConfig;

@@ -14,6 +14,8 @@ import java.util.List;
 public class ActivityCollector {
     private static final String TAG = ActivityCollector.class.getSimpleName();
 
+    private ActivityCollector(){}
+
     private static List<Activity> activities = new ArrayList<>();
 
     private static Activity currentActivity;

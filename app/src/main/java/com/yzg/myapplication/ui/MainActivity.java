@@ -120,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
         PULL_REFRESH(PullRefreshTest.class, "PullRefreshTest"),
         SIMPLE_RECYCLE_VIEW(SimpleRecycleViewTest.class, "SimpleRecyViewTest"),
         LINKED_MENU(LinkedMenuTest.class, "LinkedMenu"),
-        TEST_DAGGER(ExampleMvp.class, "TestDagger");
+        TEST_DAGGER(ExampleMvp.class, "TestDagger"),
+        IMAGE_WATER(ImageWaterActivity.class, "ImageWater");
 
         private Class cls;
         private String name;

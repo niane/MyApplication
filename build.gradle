@@ -17,7 +17,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url 'https://dl.bintray.com/niane/maven/' }
+//        maven { url 'https://dl.bintray.com/niane/maven/' }
     }
 }
 
@@ -36,10 +36,10 @@ ext {
 
 ext.deps = [
         junit               : 'junit:junit:4.12',
-        appcompatV7         : 'com.android.support:appcompat-v7:' + rootProject.ext.supportVersion,
-        design              : 'com.android.support:design:' + rootProject.ext.supportVersion,
-        supportV4           : 'com.android.support:support-v4:' + rootProject.ext.supportVersion,
-        cardview            : 'com.android.support:cardview-v7:' + rootProject.ext.supportVersion,
+        appcompatV7         : 'com.android.support:appcompat-v7:' + supportVersion,
+        design              : 'com.android.support:design:' + supportVersion,
+        supportV4           : 'com.android.support:support-v4:' + supportVersion,
+        cardview            : 'com.android.support:cardview-v7:' + supportVersion,
 
         circleimageview     : 'de.hdodenhof:circleimageview:2.1.0',
 
