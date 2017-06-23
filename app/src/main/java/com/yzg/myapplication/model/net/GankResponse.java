@@ -1,4 +1,4 @@
-package com.yzg.myapplication.model.network;
+package com.yzg.myapplication.model.net;
 
 /**
  * Created by yzg on 2017/5/2.

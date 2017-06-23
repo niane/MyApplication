@@ -5,10 +5,11 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.yzg.myapplication.R;
-import com.yzg.myapplication.contract.ExampleContract;
+import com.yzg.myapplication.presenter.contract.ExampleContract;
 import com.yzg.myapplication.model.bean.GankPublishBean;
-import com.yzg.myapplication.model.network.GankResponse;
-import com.yzg.myapplication.model.network.HttpHelper;
+import com.yzg.myapplication.model.net.GankResponse;
+import com.yzg.myapplication.model.net.HttpHelper;
+import com.yzg.myapplication.rx.GankSubscriber;
 import com.yzg.simplerecyclerview.adapter.RecyViewHolder;
 import com.yzg.simplerecyclerview.adapter.SimpleRecyAdapter;
 
@@ -58,24 +59,16 @@ public class ExamplePresenterImpl implements ExampleContract.ExamplePresenter {
         httpHelper.getGankAndroidPublish(pageSize, page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<GankResponse<List<GankPublishBean>>>() {
+                .subscribe(new GankSubscriber<List<GankPublishBean>>() {
                     @Override
-                    public void onCompleted() {
-
+                    public void _onError(Throwable e) {
+                        mView.onLoadError();
+                        mView.showMessage(e.getMessage());
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        mView.onError(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(GankResponse<List<GankPublishBean>> listGankResponse) {
-                        if(!listGankResponse.isError()){
-                            mView.onReturnList(listGankResponse.getResults());
-                        }else {
-                            mView.onError("");
-                        }
+                    public void _onNext(GankResponse<List<GankPublishBean>> response) {
+                        mView.onReturnList(response.getResults());
                     }
                 });
     }

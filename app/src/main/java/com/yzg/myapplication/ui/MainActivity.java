@@ -2,9 +2,6 @@ package com.yzg.myapplication.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +12,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yzg.common.util.YLog;
+import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
 import com.yzg.pulltorefresh.PullToRefreshLayout;
 
@@ -24,9 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     @Bind(R.id.index_list)
     ListView indexList;
     @Bind(R.id.pull_refresh)
@@ -40,23 +36,18 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Map<String, Object>> mList = new ArrayList<>();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        init();
+    protected int getContentLayoutRes() {
+        return R.layout.activity_main;
     }
 
-    private void init() {
-
-        YLog.d("Test", "100.1*2 = " + 100.1*2);
-        YLog.d("Test", "100.1*3 = " + 100.1*3);
+    @Override
+    protected void initViews(View rootView) {
+//      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//      getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         toolBar.setTitle("");
         toolBarTitle.setText(getResources().getText(R.string.app_name));
         setSupportActionBar(toolBar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initActivityies();
         mAdapter = new SimpleAdapter(this, mList, android.R.layout.simple_list_item_1, new String[]{"name"}, new int[]{android.R.id.text1});
@@ -78,13 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 }, 3000);
             }
         });
+    }
 
-//        pullRefresh.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                pullRefresh.start();
-//            }
-//        }, 50);
+    @Override
+    protected void initInject() {
 
     }
 

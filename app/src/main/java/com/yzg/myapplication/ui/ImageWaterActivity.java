@@ -3,10 +3,10 @@ package com.yzg.myapplication.ui;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
 import com.yzg.myapplication.util.ImageUtil;
 
@@ -14,19 +14,17 @@ import com.yzg.myapplication.util.ImageUtil;
  * Created by yzg on 2017/6/21.
  */
 
-public class ImageWaterActivity extends AppCompatActivity {
+public class ImageWaterActivity extends BaseActivity {
     private ImageView mSourImage;
     private ImageView mWartermarkImage;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_image_water);
-
-        initView();
+    protected int getContentLayoutRes() {
+        return R.layout.act_image_water;
     }
 
-    private void initView(){
+    @Override
+    protected void initViews(View rootView) {
         mSourImage = (ImageView) findViewById(R.id.sour_pic);
         mWartermarkImage = (ImageView) findViewById(R.id.wartermark_pic);
         Bitmap sourBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sour_pic);
@@ -47,5 +45,10 @@ public class ImageWaterActivity extends AppCompatActivity {
         textBitmap = ImageUtil.drawTextToCenter(this, textBitmap, "中间", 16, Color.RED);
 
         mWartermarkImage.setImageBitmap(textBitmap);
+    }
+
+    @Override
+    protected void initInject() {
+
     }
 }

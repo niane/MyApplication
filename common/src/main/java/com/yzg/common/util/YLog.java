@@ -17,6 +17,8 @@ public class YLog {
 
     private static boolean DEBUG = true;
 
+    private YLog(){}
+
     public static void i(String tag, String msg) {
         if (DEBUG) {
             Log.i(tag, msg);
@@ -35,9 +37,9 @@ public class YLog {
         }
     }
 
-    public static void e(Throwable throwable) {
+    public static void e(String tag, Throwable throwable) {
         if (DEBUG) {
-            Log.e("Throwable", throwable.getMessage());
+            Log.e(tag, throwable.getMessage());
         }
     }
 }

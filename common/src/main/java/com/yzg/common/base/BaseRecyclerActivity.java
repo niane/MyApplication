@@ -103,7 +103,7 @@ public abstract class BaseRecyclerActivity<T, P extends BaseRecyclerPresenter> e
     }
 
     @Override
-    public void onError(String error) {
+    public void onLoadError() {
         if(pullToRefresh.isRefreshing()){
             pullToRefresh.finish();
         }

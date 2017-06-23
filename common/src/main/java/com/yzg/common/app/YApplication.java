@@ -8,7 +8,9 @@ import android.support.multidex.MultiDex;
 
 import com.yzg.common.util.ActivityCollector;
 import com.yzg.common.util.DisplayUtil;
+import com.yzg.common.util.ConnectionUtil;
 import com.yzg.common.util.PictureUtil;
+import com.yzg.common.util.SystemUtil;
 
 /**
  * Created by yzg on 2017/5/26.
@@ -25,6 +27,8 @@ public class YApplication extends Application implements Application.ActivityLif
     protected void initTools(){
         DisplayUtil.init(this);
         PictureUtil.init(this);
+        ConnectionUtil.init(this);
+        SystemUtil.init(this);
     }
 
     @Override

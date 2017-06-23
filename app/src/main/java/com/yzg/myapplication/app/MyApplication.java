@@ -53,6 +53,7 @@ public class MyApplication extends YApplication {
                 }
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+
     }
 
     @Override

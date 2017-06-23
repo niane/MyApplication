@@ -1,15 +1,14 @@
 package com.yzg.myapplication.ui;
 
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
 import com.yzg.myapplication.adapter.FragmentAdapter;
 import com.yzg.myapplication.fragment.RecyclerFragmentTest;
@@ -17,9 +16,8 @@ import com.yzg.myapplication.fragment.RecyclerFragmentTest;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
-public class CoordinatorActivity extends AppCompatActivity {
+public class CoordinatorActivity extends BaseActivity {
     @Bind(R.id.tab_layout)
     TabLayout tabLayout;
     @Bind(R.id.viewpager)
@@ -35,15 +33,12 @@ public class CoordinatorActivity extends AppCompatActivity {
                                             ,"Tab1", "Tab2", "Tab3", "Tab4", "Tab5", "Tab6", "Tab7", "Tab8"};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordinator);
-        ButterKnife.bind(this);
-        init();
+    protected int getContentLayoutRes() {
+        return R.layout.activity_coordinator;
     }
 
-    private void init(){
-
+    @Override
+    protected void initViews(View rootView) {
         for(int i = 0; i < tabs.length; i++){
             RecyclerFragmentTest fragment = new RecyclerFragmentTest();
             fragments.add(fragment);
@@ -63,6 +58,11 @@ public class CoordinatorActivity extends AppCompatActivity {
                 Toast.makeText(CoordinatorActivity.this, "Click on Search....", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void initInject() {
+
     }
 
 }

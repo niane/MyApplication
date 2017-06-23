@@ -1,7 +1,7 @@
 package com.yzg.myapplication.inject.module;
 
 import com.yzg.myapplication.BuildConfig;
-import com.yzg.myapplication.model.network.GankApis;
+import com.yzg.myapplication.model.net.GankApis;
 
 import javax.inject.Singleton;
 

@@ -1,14 +1,12 @@
 package com.yzg.myapplication.ui;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.yzg.common.base.BaseActivity;
 import com.yzg.common.util.TimeUtil;
 import com.yzg.myapplication.R;
 import com.yzg.simplecalendarview.SimpleCalendarView;
@@ -16,13 +14,12 @@ import com.yzg.simplecalendarview.SimpleCalendarView;
 import java.util.Date;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by yzg on 2017/1/5.
  */
 
-public class SimpleCalenderActivity extends AppCompatActivity {
+public class SimpleCalenderActivity extends BaseActivity {
     @Bind(R.id.tv_date)
     TextView tvDate;
     @Bind(R.id.spinner)
@@ -34,14 +31,12 @@ public class SimpleCalenderActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_simple_calandar);
-        ButterKnife.bind(this);
-        init();
+    protected int getContentLayoutRes() {
+        return R.layout.act_simple_calandar;
     }
 
-    private void init() {
+    @Override
+    protected void initViews(View rootView) {
         tvDate.setText(TimeUtil.getYYYYMM(new Date()));
 
         ArrayAdapter spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, models);
@@ -82,6 +77,10 @@ public class SimpleCalenderActivity extends AppCompatActivity {
                 tvDate.setText(TimeUtil.getYYYYMM(date));
             }
         });
+    }
+
+    @Override
+    protected void initInject() {
 
     }
 }

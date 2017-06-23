@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface BaseRecyclerView extends BaseView {
     void onReturnList(List list);
-    void onError(String error);
+    void onLoadError();
 }

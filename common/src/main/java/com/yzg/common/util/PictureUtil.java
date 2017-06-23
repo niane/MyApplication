@@ -17,6 +17,8 @@ import java.io.File;
 public class PictureUtil {
     private static Context mContext;
 
+    private PictureUtil(){}
+
     public static void init(Context context){
         mContext = context;
     }

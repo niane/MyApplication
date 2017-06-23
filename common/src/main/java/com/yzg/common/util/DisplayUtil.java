@@ -15,6 +15,8 @@ public class DisplayUtil {
 
     private static DisplayMetrics displayMetrics;
 
+    private DisplayUtil(){}
+
     public static void init(Context context){
         mContext = context;
         displayMetrics = context.getResources().getDisplayMetrics();

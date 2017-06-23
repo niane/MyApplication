@@ -1,13 +1,12 @@
 package com.yzg.myapplication.ui;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
 import com.yzg.pulltorefresh.PullToRefreshLayout;
 import com.yzg.simplerecyclerview.SimpleRecyclerView;
@@ -19,13 +18,12 @@ import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by yzg on 2017/3/3.
  */
 
-public class SimpleRecycleViewTest extends AppCompatActivity {
+public class SimpleRecycleViewTest extends BaseActivity {
     private static final String Tag = SimpleRecycleViewTest.class.getSimpleName();
 
     @Bind(R.id.comm_recyView)
@@ -48,11 +46,12 @@ public class SimpleRecycleViewTest extends AppCompatActivity {
     private final int paseSize = 20;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_comm_recyview);
-        ButterKnife.bind(this);
+    protected int getContentLayoutRes() {
+        return R.layout.act_comm_recyview;
+    }
 
+    @Override
+    protected void initViews(View rootView) {
         adapter = new SimpleRecyAdapter<String>(this, R.layout.listview_item, mList) {
             @Override
             protected void convert(RecyViewHolder holder, String string, int position) {
@@ -88,6 +87,10 @@ public class SimpleRecycleViewTest extends AppCompatActivity {
                 pullRefresh.start();
             }
         }, 50);
+    }
+
+    @Override
+    protected void initInject() {
 
     }
 

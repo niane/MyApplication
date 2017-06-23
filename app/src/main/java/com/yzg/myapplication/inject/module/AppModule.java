@@ -3,8 +3,8 @@ package com.yzg.myapplication.inject.module;
 import android.content.Context;
 
 import com.yzg.myapplication.app.MyApplication;
-import com.yzg.myapplication.model.network.HttpHelper;
-import com.yzg.myapplication.model.network.RetrofitHelper;
+import com.yzg.myapplication.model.net.HttpHelper;
+import com.yzg.myapplication.model.net.RetrofitHelper;
 import com.yzg.myapplication.model.orm.AreaDao;
 import com.yzg.myapplication.model.orm.greendao.GAreaDao;
 import com.yzg.myapplication.model.orm.greendao.GDataBaseHelper;

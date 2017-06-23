@@ -1,4 +1,4 @@
-package com.yzg.myapplication.model.network;
+package com.yzg.myapplication.model.net;
 
 import com.yzg.myapplication.model.bean.GankPublishBean;
 

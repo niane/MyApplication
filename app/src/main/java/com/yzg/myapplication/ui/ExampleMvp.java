@@ -1,8 +1,10 @@
 package com.yzg.myapplication.ui;
 
+import android.widget.Toast;
+
 import com.yzg.common.base.BaseRecyclerActivity;
 import com.yzg.myapplication.app.MyApplication;
-import com.yzg.myapplication.contract.ExampleContract;
+import com.yzg.myapplication.presenter.contract.ExampleContract;
 import com.yzg.myapplication.model.bean.GankPublishBean;
 import com.yzg.myapplication.presenter.ExamplePresenterImpl;
 
@@ -18,12 +20,12 @@ public class ExampleMvp extends BaseRecyclerActivity<GankPublishBean, ExamplePre
     }
 
     @Override
-    public void showToast(String toastStr) {
-
+    protected void requestData(int pageNO, int pageSize) {
+        mPresenter.getGankPublish(pageSize, pageNO);
     }
 
     @Override
-    protected void requestData(int pageNO, int pageSize) {
-        mPresenter.getGankPublish(pageSize, pageNO);
+    public void showMessage(String msg) {
+        Toast.makeText(ExampleMvp.this, msg, Toast.LENGTH_SHORT).show();
     }
 }

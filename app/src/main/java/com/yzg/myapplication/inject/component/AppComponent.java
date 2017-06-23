@@ -5,9 +5,8 @@ import android.content.Context;
 import com.yzg.myapplication.app.MyApplication;
 import com.yzg.myapplication.inject.module.AppModule;
 import com.yzg.myapplication.inject.module.HttpModule;
-import com.yzg.myapplication.model.network.HttpHelper;
+import com.yzg.myapplication.model.net.HttpHelper;
 import com.yzg.myapplication.model.orm.AreaDao;
-import com.yzg.myapplication.model.orm.ormlite.LAreaDao;
 
 import javax.inject.Singleton;
 

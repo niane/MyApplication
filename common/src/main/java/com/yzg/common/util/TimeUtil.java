@@ -10,6 +10,8 @@ import java.util.Date;
 
 public class TimeUtil {
 
+    private TimeUtil(){}
+
     /**
      *
      * @param date
