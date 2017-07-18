@@ -2,9 +2,12 @@ package com.yzg.myapplication.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaCodec;
+import android.media.MediaFormat;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
+import com.yzg.myapplication.rx.RxBus;
 import com.yzg.myapplication.util.PermissionUtils;
 import com.yzg.pulltorefresh.PullToRefreshLayout;
 
@@ -25,8 +29,17 @@ import java.util.Map;
 import java.util.jar.Manifest;
 
 import butterknife.Bind;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import rx.subjects.PublishSubject;
+import rx.subjects.Subject;
 
 public class MainActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+    private final String TAG = this.getClass().getSimpleName();
     @Bind(R.id.index_list)
     ListView indexList;
     @Bind(R.id.pull_refresh)
@@ -73,6 +86,36 @@ public class MainActivity extends BaseActivity implements ActivityCompat.OnReque
                 }, 3000);
             }
         });
+
+        Log.e(TAG, "Main Thread id " + Thread.currentThread().getId());
+
+        Observable.create(new Observable.OnSubscribe<Object>() {
+            @Override
+            public void call(Subscriber<? super Object> subscriber) {
+                Log.e(TAG, "Observable Thread id " + Thread.currentThread().getId());
+                subscriber.onNext("This is a emited message");
+            }
+        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+                .subscribe(new Action1<Object>() {
+                    @Override
+                    public void call(Object o) {
+                        Log.e(TAG, "AndroidSchedulers Thread id " + Thread.currentThread().getId());
+                    }
+                });
+
+        RxBus.getInstance().onEvent(String.class, this, new Action1<String>() {
+            @Override
+            public void call(String s) {
+                Log.e(TAG, "Event listener3:" + s + ";-------- thread id: " + Thread.currentThread().getId());
+            }
+        });
+        RxBus.getInstance().post("This is a RxBus event test");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.getInstance().unsubscribe(this);
     }
 
     @Override

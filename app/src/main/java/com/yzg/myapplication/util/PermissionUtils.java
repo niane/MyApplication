@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import java.util.HashMap;
@@ -25,13 +26,9 @@ public class PermissionUtils {
         void onPermissionDenied(int requestCode);
     }
 
-    public static boolean hasPermissions(Context context, @NonNull String... perms) {
+    public static boolean hasPermissions(@NonNull Context context, @NonNull String... perms) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
-        }
-
-        if (context == null) {
-            throw new IllegalArgumentException("Can't check permissions for null context");
         }
 
         for (String perm : perms) {
@@ -42,6 +39,16 @@ public class PermissionUtils {
         }
 
         return true;
+    }
+
+    public static void requestPermission(@NonNull android.app.Fragment fragment, @NonNull String rationale,
+                                         PermissionCallback permissionCallback, int requestCode, @NonNull String... perms){
+        requestPermission(fragment.getActivity(), rationale, permissionCallback, requestCode, perms);
+    }
+
+    public static void requestPermission(@NonNull Fragment fragment, @NonNull String rationale,
+                                         PermissionCallback permissionCallback, int requestCode, @NonNull String... perms){
+        requestPermission(fragment.getActivity(), rationale, permissionCallback, requestCode, perms);
     }
 
     public static void requestPermission(@NonNull Activity activity, @NonNull String rationale,
@@ -102,12 +109,12 @@ public class PermissionUtils {
 
     private static void showMessageOKCancel(final Activity context, String message, DialogInterface.OnClickListener clickListener) {
         new AlertDialog.Builder(context)
+                .setCancelable(false)
                 .setMessage(message)
                 .setPositiveButton("OK", clickListener)
                 .setNegativeButton("Cancel", clickListener)
                 .create()
                 .show();
-
     }
 
     public static void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
