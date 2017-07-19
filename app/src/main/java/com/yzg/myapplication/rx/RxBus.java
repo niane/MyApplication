@@ -12,6 +12,7 @@ import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
 
 /**
+ * 事件总线，RxManager管理订阅
  * Created by yzg on 2017/7/18.
  */
 

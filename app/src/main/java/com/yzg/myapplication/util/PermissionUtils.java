@@ -12,13 +12,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import java.util.HashMap;
 
-/**
- * Created by qianxiaoai on 2016/7/7.
- */
+
 public class PermissionUtils {
 
     private static final String TAG = PermissionUtils.class.getSimpleName();
 
+    /**
+     * 以requestCode为key存储回调，不同的请求应使用不同的requestCode
+     */
     private static final HashMap<Integer, PermissionCallback> permissionCallbacks = new HashMap<>();
 
     public interface PermissionCallback {
@@ -41,16 +42,25 @@ public class PermissionUtils {
         return true;
     }
 
+    /**
+     * 以requestCode识别不同的请求，不同的请求应使用不同的requestCode
+     */
     public static void requestPermission(@NonNull android.app.Fragment fragment, @NonNull String rationale,
                                          PermissionCallback permissionCallback, int requestCode, @NonNull String... perms){
         requestPermission(fragment.getActivity(), rationale, permissionCallback, requestCode, perms);
     }
 
+    /**
+     * 以requestCode识别不同的请求，不同的请求应使用不同的requestCode
+     */
     public static void requestPermission(@NonNull Fragment fragment, @NonNull String rationale,
                                          PermissionCallback permissionCallback, int requestCode, @NonNull String... perms){
         requestPermission(fragment.getActivity(), rationale, permissionCallback, requestCode, perms);
     }
 
+    /**
+     * 以requestCode识别不同的请求，不同的请求应使用不同的requestCode
+     */
     public static void requestPermission(@NonNull Activity activity, @NonNull String rationale,
                                          PermissionCallback permissionCallback, int requestCode,  @NonNull String... perms) {
 

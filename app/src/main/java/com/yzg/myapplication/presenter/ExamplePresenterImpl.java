@@ -4,12 +4,14 @@ package com.yzg.myapplication.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import com.yzg.common.base.BaseView;
 import com.yzg.myapplication.R;
 import com.yzg.myapplication.presenter.contract.ExampleContract;
 import com.yzg.myapplication.model.bean.GankPublishBean;
 import com.yzg.myapplication.model.net.GankResponse;
 import com.yzg.myapplication.model.net.HttpHelper;
 import com.yzg.myapplication.rx.GankSubscriber;
+import com.yzg.myapplication.rx.RxPresenter;
 import com.yzg.simplerecyclerview.adapter.RecyViewHolder;
 import com.yzg.simplerecyclerview.adapter.SimpleRecyAdapter;
 
@@ -25,7 +27,7 @@ import rx.schedulers.Schedulers;
  * Created by yzg on 2017/3/10.
  */
 
-public class ExamplePresenterImpl implements ExampleContract.ExamplePresenter {
+public class ExamplePresenterImpl extends RxPresenter<ExampleContract.ExampleView> implements ExampleContract.ExamplePresenter {
     private ExampleContract.ExampleView mView;
     private HttpHelper httpHelper;
 
@@ -36,12 +38,13 @@ public class ExamplePresenterImpl implements ExampleContract.ExamplePresenter {
 
     @Override
     public void attachView(ExampleContract.ExampleView view) {
+        super.attachView(view);
         mView = view;
     }
 
     @Override
     public void detachView() {
-
+        super.detachView();
     }
 
     @Override
@@ -56,7 +59,7 @@ public class ExamplePresenterImpl implements ExampleContract.ExamplePresenter {
 
     @Override
     public void getGankPublish(int pageSize, int page) {
-        httpHelper.getGankAndroidPublish(pageSize, page)
+        add(httpHelper.getGankAndroidPublish(pageSize, page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new GankSubscriber<List<GankPublishBean>>() {
@@ -70,6 +73,6 @@ public class ExamplePresenterImpl implements ExampleContract.ExamplePresenter {
                     public void _onNext(GankResponse<List<GankPublishBean>> response) {
                         mView.onReturnList(response.getResults());
                     }
-                });
+                }));
     }
 }

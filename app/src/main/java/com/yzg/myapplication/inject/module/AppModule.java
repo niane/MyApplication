@@ -8,6 +8,8 @@ import com.yzg.myapplication.model.net.RetrofitHelper;
 import com.yzg.myapplication.model.orm.AreaDao;
 import com.yzg.myapplication.model.orm.greendao.GAreaDao;
 import com.yzg.myapplication.model.orm.greendao.GDataBaseHelper;
+import com.yzg.myapplication.model.orm.ormlite.LAreaDao;
+import com.yzg.myapplication.model.orm.ormlite.LDataBaseHelper;
 
 import javax.inject.Singleton;
 

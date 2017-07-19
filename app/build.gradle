@@ -11,9 +11,18 @@ android {
         versionCode 1
         versionName "1.0"
 
+//        jackOptions {
+//            enabled true
+//        }
+
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 
     //签名
     signingConfigs {
@@ -84,12 +93,11 @@ dependencies {
     compile deps.logging_interceptor
     compile deps.circleimageview
     compile deps.greendao
+    compile deps.ormlite
     compile deps.pulltorefresh
     compile deps.simplerecyclerview
     compile deps.simplecalendarview
 
     compile project(':common')
-    compile files('src/main/lib/ormlite-android-5.0.jar')
-    compile files('src/main/lib/ormlite-core-5.0.jar')
 
 }
