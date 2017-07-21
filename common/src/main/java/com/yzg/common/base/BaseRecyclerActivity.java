@@ -56,7 +56,8 @@ public abstract class BaseRecyclerActivity<T, P extends BaseRecyclerPresenter> e
 
             @Override
             public void onRefresh() {
-                pullToRefresh.start();
+                pageNO = 1;
+                requestData(pageNO, pageSize);
             }
         });
 
@@ -68,12 +69,15 @@ public abstract class BaseRecyclerActivity<T, P extends BaseRecyclerPresenter> e
             }
         });
 
-        pullToRefresh.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    pullToRefresh.start();
-                }
-            }, 50);
+        recyclerView.setStatus(SimpleRecyclerView.STATUS_REFRESHING);
+        requestData(pageNO, pageSize);
+
+//        pullToRefresh.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    pullToRefresh.start();
+//                }
+//            }, 50);
     }
 
     protected RecyclerView.LayoutManager getLayoutManager(){

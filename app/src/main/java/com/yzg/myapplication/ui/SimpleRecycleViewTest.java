@@ -69,7 +69,8 @@ public class SimpleRecycleViewTest extends BaseActivity {
 
             @Override
             public void onRefresh() {
-                pullRefresh.start();
+                pageNO = 0;
+                requestDataList();
             }
         });
 
@@ -81,12 +82,15 @@ public class SimpleRecycleViewTest extends BaseActivity {
             }
         });
 
-        pullRefresh.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullRefresh.start();
-            }
-        }, 50);
+        commRecyView.setStatus(SimpleRecyclerView.STATUS_REFRESHING);
+        requestDataList();
+
+//        pullRefresh.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                pullRefresh.start();
+//            }
+//        }, 50);
     }
 
     @Override

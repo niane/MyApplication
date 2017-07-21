@@ -11,6 +11,8 @@ import com.yzg.simplerecyclerview.SimpleRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yzg.simplerecyclerview.SimpleRecyclerView.STATUS_REFRESHING;
+
 /**
  * Created by yzg on 2017/3/27.<br/>
  *
@@ -57,7 +59,8 @@ public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> e
 
             @Override
             public void onRefresh() {
-                pullToRefresh.start();
+                pageNO = 1;
+                requestData(pageNO, pageSize);
             }
         });
 
@@ -70,12 +73,14 @@ public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> e
         });
 
         if(mList.isEmpty() || needRefreshOnCreate()){
-            pullToRefresh.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    pullToRefresh.start();
-                }
-            }, 50);
+            recyclerView.setStatus(STATUS_REFRESHING);
+            requestData(pageNO, pageSize);
+//            pullToRefresh.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    pullToRefresh.start();
+//                }
+//            }, 50);
         }
     }
 

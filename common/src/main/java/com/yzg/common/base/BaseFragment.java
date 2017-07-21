@@ -44,11 +44,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         ButterKnife.bind(this, rootView);
 
         initInject();
-        initView(rootView);
-
         if (mPresenter != null) {
             mPresenter.attachView(this);
         }
+        initView(rootView);
+
     }
 
     /**

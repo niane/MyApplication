@@ -32,11 +32,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         ButterKnife.bind(this);
 
         initInject();
-        initViews(rootView);
-
         if(mPresenter != null){
             mPresenter.attachView(this);
         }
+        initViews(rootView);
+
     }
 
     @Override
