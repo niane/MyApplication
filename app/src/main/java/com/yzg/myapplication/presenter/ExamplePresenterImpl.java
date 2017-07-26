@@ -4,6 +4,7 @@ package com.yzg.myapplication.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import com.yzg.common.app.YException;
 import com.yzg.common.base.BaseView;
 import com.yzg.myapplication.R;
 import com.yzg.myapplication.presenter.contract.ExampleContract;
@@ -64,8 +65,8 @@ public class ExamplePresenterImpl extends RxPresenter<ExampleContract.ExampleVie
                 .subscribeOn(Schedulers.io())
                 .subscribe(new GankSubscriber<List<GankPublishBean>>() {
                     @Override
-                    public void _onError(Throwable e) {
-                        mView.onLoadError();
+                    public void _onError(YException e) {
+                        mView.onLoadError(e);
                         mView.showMessage(e.getMessage());
                     }
 

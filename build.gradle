@@ -62,6 +62,6 @@ ext.deps = [
         ormlite             : 'com.j256.ormlite:ormlite-android:5.0',
 
         pulltorefresh       : 'com.yzg.pulltorefresh:library:1.0.0',
-        simplerecyclerview  : 'com.yzg.simplerecyclerview:library:1.0',
+        simplerecyclerview  : 'com.yzg.simplerecyclerview:library:1.0.1',
         simplecalendarview  : 'com.yzg.simplecalendarview:library:1.0'
 ]

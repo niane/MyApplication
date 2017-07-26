@@ -3,6 +3,8 @@ package com.yzg.myapplication.inject.module;
 import com.yzg.myapplication.BuildConfig;
 import com.yzg.myapplication.model.net.GankApis;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -36,6 +38,8 @@ public class HttpModule {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             clientBuilder.addInterceptor(loggingInterceptor);
         }
+        clientBuilder.readTimeout(15, TimeUnit.SECONDS);
+        clientBuilder.writeTimeout(15, TimeUnit.SECONDS);
 
         return clientBuilder.build();
     }

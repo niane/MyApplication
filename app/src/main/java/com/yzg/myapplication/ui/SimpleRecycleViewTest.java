@@ -64,11 +64,13 @@ public class SimpleRecycleViewTest extends BaseActivity {
         commRecyView.setOnLoadListener(new SimpleRecyclerView.OnLoadListener() {
             @Override
             public void onLoadMore() {
+                commRecyView.setStatus(SimpleRecyclerView.STATUS_LOADING_MORE);
                 requestDataList();
             }
 
             @Override
             public void onRefresh() {
+                commRecyView.setStatus(SimpleRecyclerView.STATUS_REFRESHING);
                 pageNO = 0;
                 requestDataList();
             }

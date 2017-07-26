@@ -26,7 +26,7 @@ public class ConnectionUtil {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return wifiInfo != null;
+        return wifiInfo != null && wifiInfo.isConnected();
     }
 
     /**
@@ -36,7 +36,7 @@ public class ConnectionUtil {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mobileNetworkInfo = connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        return mobileNetworkInfo != null;
+        return mobileNetworkInfo != null && mobileNetworkInfo.isConnected();
     }
 
     /**
@@ -44,6 +44,7 @@ public class ConnectionUtil {
      */
     public static boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager.getActiveNetworkInfo() != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

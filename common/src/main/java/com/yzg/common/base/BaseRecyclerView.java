@@ -1,5 +1,7 @@
 package com.yzg.common.base;
 
+import com.yzg.common.app.YException;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,5 @@ import java.util.List;
 
 public interface BaseRecyclerView extends BaseView {
     void onReturnList(List list);
-    void onLoadError();
+    void onLoadError(YException e);
 }

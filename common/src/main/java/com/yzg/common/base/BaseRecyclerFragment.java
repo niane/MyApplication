@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yzg.common.R;
+import com.yzg.common.app.ExceptionHandler;
+import com.yzg.common.app.YException;
 import com.yzg.pulltorefresh.PullToRefreshLayout;
 import com.yzg.simplerecyclerview.SimpleRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yzg.simplerecyclerview.SimpleRecyclerView.STATUS_LOADING_MORE;
 import static com.yzg.simplerecyclerview.SimpleRecyclerView.STATUS_REFRESHING;
 
 /**
@@ -54,11 +57,14 @@ public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> e
         recyclerView.setOnLoadListener(new SimpleRecyclerView.OnLoadListener() {
             @Override
             public void onLoadMore() {
+                recyclerView.setStatus(STATUS_LOADING_MORE);
                 requestData(pageNO, pageSize);
             }
 
             @Override
             public void onRefresh() {
+                mList.clear();
+                recyclerView.setStatus(STATUS_REFRESHING);
                 pageNO = 1;
                 requestData(pageNO, pageSize);
             }
@@ -75,12 +81,6 @@ public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> e
         if(mList.isEmpty() || needRefreshOnCreate()){
             recyclerView.setStatus(STATUS_REFRESHING);
             requestData(pageNO, pageSize);
-//            pullToRefresh.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    pullToRefresh.start();
-//                }
-//            }, 50);
         }
     }
 
@@ -120,17 +120,19 @@ public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> e
     }
 
     @Override
-    public void onLoadError() {
+    public void onLoadError(YException e) {
         if(pullToRefresh.isRefreshing()){
             pullToRefresh.finish();
         }
 
         if(pageNO > 1){
-            recyclerView.setStatus(SimpleRecyclerView.STATUS_LOAD_MORE_ERROR);
+            recyclerView.setStatus(SimpleRecyclerView.STATUS_LOAD_MORE_ERROR, e.getMessage());
         }else {
-            mList.clear();
-            recyclerView.setStatus(SimpleRecyclerView.STATUS_REFRESH_ERROR);
-            adapter.notifyDataSetChanged();
+            if(e.getCode() == YException.NETWORK_ACCESS){
+                recyclerView.setStatus(SimpleRecyclerView.STATUS_NETWORK_ERROR, e.getMessage());
+            }else {
+                recyclerView.setStatus(SimpleRecyclerView.STATUS_REFRESH_ERROR, e.getMessage());
+            }
         }
     }
 
