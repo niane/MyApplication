@@ -8,20 +8,24 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 
-import static com.yzg.common.app.YException.NETWORK_ACCESS;
-import static com.yzg.common.app.YException.NETWORK_ERROR;
-import static com.yzg.common.app.YException.REQUEST_TIMEOUT;
-import static com.yzg.common.app.YException.SERVER_ERROR_DATA;
-import static com.yzg.common.app.YException.SERVICE_EXCEPTION;
-import static com.yzg.common.app.YException.UNKNOWN;
-
 /**
  * Created by yzg on 2017/6/23.
  */
 
 public class ExceptionHandler{
+    /**网络连接异常**/
+    public static int NETWORK_ACCESS  = 1000;
+    /**请求超时**/
+    public static int REQUEST_TIMEOUT = 1001;
+    /**服务器异常**/
+    public static int SERVICE_EXCEPTION = 1002;
+    /**网络错误**/
+    public static int NETWORK_ERROR = 1003;
 
-    private ExceptionHandler(){}
+    /**服务器返回异常数据**/
+    public static int SERVER_ERROR_DATA = 1100;
+    /**未知错误**/
+    public static int UNKNOWN = 1101;
 
     public static YException handleException(Throwable exception){
         YLog.e("ExceptionHandler", exception.getMessage());

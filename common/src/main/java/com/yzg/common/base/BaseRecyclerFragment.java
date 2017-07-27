@@ -28,13 +28,13 @@ import static com.yzg.simplerecyclerview.SimpleRecyclerView.STATUS_REFRESHING;
  *
  */
 
-public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> extends BaseFragment<P> implements BaseRecyclerView {
+public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> extends BaseFragment<P> implements BaseRecyclerView<T> {
 
     protected SimpleRecyclerView recyclerView;
     protected PullToRefreshLayout pullToRefresh;
 
     private int pageNO = 1;
-    private int pageSize = 100;
+    private int pageSize = 20;
 
     private List<T> mList = new ArrayList<>();
     private RecyclerView.Adapter adapter;
@@ -97,7 +97,7 @@ public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> e
     }
 
     @Override
-    public void onReturnList(List list) {
+    public void onReturnList(List<T> list) {
 
         if(pullToRefresh.isRefreshing()){
             pullToRefresh.finish();
@@ -128,7 +128,7 @@ public abstract class BaseRecyclerFragment<T, P extends BaseRecyclerPresenter> e
         if(pageNO > 1){
             recyclerView.setStatus(SimpleRecyclerView.STATUS_LOAD_MORE_ERROR, e.getMessage());
         }else {
-            if(e.getCode() == YException.NETWORK_ACCESS){
+            if(e.getCode() == ExceptionHandler.NETWORK_ACCESS){
                 recyclerView.setStatus(SimpleRecyclerView.STATUS_NETWORK_ERROR, e.getMessage());
             }else {
                 recyclerView.setStatus(SimpleRecyclerView.STATUS_REFRESH_ERROR, e.getMessage());

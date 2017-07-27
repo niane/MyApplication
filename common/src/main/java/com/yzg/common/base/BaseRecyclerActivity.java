@@ -24,7 +24,7 @@ import java.util.List;
  *
  */
 
-public abstract class BaseRecyclerActivity<T, P extends BaseRecyclerPresenter> extends BaseActivity<P> implements BaseRecyclerView {
+public abstract class BaseRecyclerActivity<T, P extends BaseRecyclerPresenter> extends BaseActivity<P> implements BaseRecyclerView<T> {
     private SimpleRecyclerView recyclerView;
     private PullToRefreshLayout pullToRefresh;
 
@@ -83,7 +83,7 @@ public abstract class BaseRecyclerActivity<T, P extends BaseRecyclerPresenter> e
     }
 
     @Override
-    public void onReturnList(List list) {
+    public void onReturnList(List<T> list) {
         if(pullToRefresh.isRefreshing()){
             pullToRefresh.finish();
         }
@@ -113,7 +113,7 @@ public abstract class BaseRecyclerActivity<T, P extends BaseRecyclerPresenter> e
         if(pageNO > 1){
             recyclerView.setStatus(SimpleRecyclerView.STATUS_LOAD_MORE_ERROR, e.getMessage());
         }else {
-            if(e.getCode() == YException.NETWORK_ACCESS){
+            if(e.getCode() == ExceptionHandler.NETWORK_ACCESS){
                 recyclerView.setStatus(SimpleRecyclerView.STATUS_NETWORK_ERROR, e.getMessage());
             }else {
                 recyclerView.setStatus(SimpleRecyclerView.STATUS_REFRESH_ERROR, e.getMessage());
