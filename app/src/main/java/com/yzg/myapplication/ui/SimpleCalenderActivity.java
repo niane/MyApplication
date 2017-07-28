@@ -78,9 +78,4 @@ public class SimpleCalenderActivity extends BaseActivity {
             }
         });
     }
-
-    @Override
-    protected void initInject() {
-
-    }
 }

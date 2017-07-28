@@ -98,6 +98,9 @@ dependencies {
     compile deps.simplerecyclerview
     compile deps.simplecalendarview
 
+    compile deps.dagger
+    compile deps.dagger_compiler
+
     compile project(':common')
 
 }

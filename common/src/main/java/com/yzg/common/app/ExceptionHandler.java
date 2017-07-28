@@ -27,30 +27,32 @@ public class ExceptionHandler{
     /**未知错误**/
     public static int UNKNOWN = 1101;
 
+    private ExceptionHandler(){}
+
     public static YException handleException(Throwable exception){
         YLog.e("ExceptionHandler", exception.getMessage());
 
         if(exception instanceof UnknownHostException || exception instanceof ConnectException){
-            return new YException(NETWORK_ACCESS, "网络连接异常");
+            return new YException(NETWORK_ACCESS, "网络连接异常", exception);
         }
 
         if(exception instanceof SocketTimeoutException){
-            return new YException(REQUEST_TIMEOUT, "请求超时");
+            return new YException(REQUEST_TIMEOUT, "请求超时", exception);
         }
 
         if(exception instanceof UnknownServiceException){
-            return new YException(SERVICE_EXCEPTION, "服务器不可用");
+            return new YException(SERVICE_EXCEPTION, "服务器不可用", exception);
         }
 
         if(exception instanceof SocketException){
-            return new YException(NETWORK_ERROR, "网络错误");
+            return new YException(NETWORK_ERROR, "网络错误", exception);
         }
 
-        return new YException(UNKNOWN, "未知错误");
+        return new YException(UNKNOWN, "未知错误", exception);
     }
 
     public static YException handleException(ServerException exception){
         YLog.e("ExceptionHandler", exception.getMessage());
-        return new YException(SERVER_ERROR_DATA, exception.getMessage());
+        return new YException(SERVER_ERROR_DATA, "服务器异常", exception);
     }
 }

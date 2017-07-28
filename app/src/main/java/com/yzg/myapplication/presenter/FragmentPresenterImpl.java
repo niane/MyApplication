@@ -3,8 +3,8 @@ package com.yzg.myapplication.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-import com.yzg.common.base.BaseRecyclerPresenter;
-import com.yzg.common.base.BaseRecyclerView;
+import com.yzg.common.base.mvp.BaseRecyclerPresenter;
+import com.yzg.common.base.mvp.BaseRecyclerView;
 import com.yzg.myapplication.R;
 import com.yzg.simplerecyclerview.adapter.RecyViewHolder;
 import com.yzg.simplerecyclerview.adapter.SimpleRecyAdapter;
@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 public class FragmentPresenterImpl implements BaseRecyclerPresenter<String, BaseRecyclerView> {
 
-    @Inject
     public FragmentPresenterImpl(){
 
     }
@@ -35,7 +34,7 @@ public class FragmentPresenterImpl implements BaseRecyclerPresenter<String, Base
     }
 
     @Override
-    public RecyclerView.Adapter createAdapter(Context context, List list) {
+    public SimpleRecyAdapter<String> createAdapter(Context context, List list) {
         return new SimpleRecyAdapter<String>(context, R.layout.listview_item, list) {
             @Override
             protected void convert(RecyViewHolder viewHolder, String string, int position) {

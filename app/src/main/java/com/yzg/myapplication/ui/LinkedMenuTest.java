@@ -27,9 +27,4 @@ public class LinkedMenuTest extends BaseActivity {
         AreaMenuFragment fragment = new AreaMenuFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_layout, fragment).commit();
     }
-
-    @Override
-    protected void initInject() {
-
-    }
 }

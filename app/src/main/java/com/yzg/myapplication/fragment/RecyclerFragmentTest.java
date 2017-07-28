@@ -1,6 +1,6 @@
 package com.yzg.myapplication.fragment;
 
-import com.yzg.common.base.BaseRecyclerFragment;
+import com.yzg.common.base.mvp.BaseRecyclerFragment;
 import com.yzg.myapplication.app.MyApplication;
 import com.yzg.myapplication.presenter.FragmentPresenterImpl;
 
@@ -39,7 +39,7 @@ public class RecyclerFragmentTest extends BaseRecyclerFragment<String, FragmentP
                 .subscribe(new Action1<List<String>>() {
                     @Override
                     public void call(List<String> strings) {
-                        onReturnList(strings);
+                        onReturnList(strings, pageNO);
                     }
                 });
     }
@@ -50,7 +50,7 @@ public class RecyclerFragmentTest extends BaseRecyclerFragment<String, FragmentP
     }
 
     @Override
-    protected void initInject() {
-        MyApplication.getInstance().getFragmentComponent().inject(this);
+    public FragmentPresenterImpl newPresenter() {
+        return new FragmentPresenterImpl();
     }
 }

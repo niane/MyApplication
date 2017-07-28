@@ -33,8 +33,6 @@ dependencies {
     compile deps.design
     compile deps.supportV4
     compile deps.butterknife
-    compile deps.dagger
-    compile deps.dagger_compiler
     compile deps.multidex
     compile deps.pulltorefresh
     compile deps.simplerecyclerview

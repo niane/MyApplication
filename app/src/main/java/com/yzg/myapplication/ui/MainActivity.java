@@ -119,11 +119,6 @@ public class MainActivity extends BaseActivity implements ActivityCompat.OnReque
     }
 
     @Override
-    protected void initInject() {
-
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;

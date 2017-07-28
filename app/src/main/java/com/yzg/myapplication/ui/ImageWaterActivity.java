@@ -47,8 +47,4 @@ public class ImageWaterActivity extends BaseActivity {
         mWartermarkImage.setImageBitmap(textBitmap);
     }
 
-    @Override
-    protected void initInject() {
-
-    }
 }

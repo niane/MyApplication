@@ -36,8 +36,4 @@ public class PullRefreshTest extends BaseActivity {
         });
     }
 
-    @Override
-    protected void initInject() {
-
-    }
 }

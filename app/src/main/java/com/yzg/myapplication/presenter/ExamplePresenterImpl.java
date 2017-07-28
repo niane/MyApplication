@@ -5,8 +5,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.yzg.common.app.YException;
-import com.yzg.common.base.BaseView;
 import com.yzg.myapplication.R;
+import com.yzg.myapplication.app.MyApplication;
 import com.yzg.myapplication.presenter.contract.ExampleContract;
 import com.yzg.myapplication.model.bean.GankPublishBean;
 import com.yzg.myapplication.model.net.GankResponse;
@@ -18,9 +18,6 @@ import com.yzg.simplerecyclerview.adapter.SimpleRecyAdapter;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -32,9 +29,8 @@ public class ExamplePresenterImpl extends RxPresenter<ExampleContract.ExampleVie
     private ExampleContract.ExampleView mView;
     private HttpHelper httpHelper;
 
-    @Inject
-    public ExamplePresenterImpl(HttpHelper httpHelper) {
-        this.httpHelper = httpHelper;
+    public ExamplePresenterImpl() {
+        this.httpHelper = MyApplication.getInstance().getAppComponent().getHttpHelper();
     }
 
     @Override
@@ -49,7 +45,7 @@ public class ExamplePresenterImpl extends RxPresenter<ExampleContract.ExampleVie
     }
 
     @Override
-    public RecyclerView.Adapter createAdapter(Context context, List<GankPublishBean> list) {
+    public SimpleRecyAdapter<GankPublishBean> createAdapter(Context context, List<GankPublishBean> list) {
         return new SimpleRecyAdapter<GankPublishBean>(context, R.layout.listview_item, list){
             @Override
             protected void convert(RecyViewHolder viewHolder, GankPublishBean gankPublishBean, int position) {
@@ -59,20 +55,20 @@ public class ExamplePresenterImpl extends RxPresenter<ExampleContract.ExampleVie
     }
 
     @Override
-    public void getGankPublish(int pageSize, int page) {
+    public void getGankPublish(int pageSize, final int page) {
         add(httpHelper.getGankAndroidPublish(pageSize, page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new GankSubscriber<List<GankPublishBean>>() {
                     @Override
                     public void _onError(YException e) {
-                        mView.onLoadError(e);
+                        mView.onLoadError(e, page);
                         mView.showMessage(e.getMessage());
                     }
 
                     @Override
                     public void _onNext(GankResponse<List<GankPublishBean>> response) {
-                        mView.onReturnList(response.getResults());
+                        mView.onReturnList(response.getResults(), page);
                     }
                 }));
     }

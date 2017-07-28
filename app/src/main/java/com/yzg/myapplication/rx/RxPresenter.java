@@ -1,7 +1,6 @@
 package com.yzg.myapplication.rx;
-
-import com.yzg.common.base.BasePresenter;
-import com.yzg.common.base.BaseView;
+import com.yzg.common.base.mvp.BasePresenter;
+import com.yzg.common.base.mvp.BaseView;
 import com.yzg.common.util.YLog;
 
 import rx.Subscription;

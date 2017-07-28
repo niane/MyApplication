@@ -95,11 +95,6 @@ public class SimpleRecycleViewTest extends BaseActivity {
 //        }, 50);
     }
 
-    @Override
-    protected void initInject() {
-
-    }
-
     private void requestDataList() {
         Log.e(Tag, "Request datas........");
         commRecyView.postDelayed(new Runnable() {

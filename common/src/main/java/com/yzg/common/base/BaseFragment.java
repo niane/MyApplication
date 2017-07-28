@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 
 /**
@@ -16,12 +14,9 @@ import butterknife.ButterKnife;
  * 基类fragment
  */
 
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView {
+public abstract class BaseFragment extends Fragment {
     protected final String TAG = getClass().getSimpleName();
     protected View rootView;
-
-    @Inject
-    protected P mPresenter;
     protected Bundle mBundle;
 
     @Override
@@ -34,6 +29,12 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        if(rootView != null){
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null)
+                parent.removeView(rootView);
+        }
         rootView = inflater.inflate(getContentLayoutRes(), container, false);
         return rootView;
     }
@@ -41,14 +42,13 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        onRestoreInstanceState(savedInstanceState);
+        onBindViewBefore();
+
         ButterKnife.bind(this, rootView);
 
-        initInject();
-        if (mPresenter != null) {
-            mPresenter.attachView(this);
-        }
-        initView(rootView);
-
+        initViews(rootView);
+        initData();
     }
 
     /**
@@ -62,18 +62,25 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected abstract int getContentLayoutRes();
 
-    protected abstract void initView(View rootView);
+    protected abstract void initViews(View rootView);
 
-    protected abstract void initInject();
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        if (mPresenter != null) {
-            mPresenter.detachView();
-            mPresenter = null;
-        }
+        onUnBindViewBefore();
         ButterKnife.unbind(this);
+    }
+
+    protected void initData() {
+    }
+
+    protected void onBindViewBefore() {
+    }
+
+    protected void onUnBindViewBefore(){
+    }
+
+    protected void onRestoreInstanceState(Bundle bundle) {
     }
 }

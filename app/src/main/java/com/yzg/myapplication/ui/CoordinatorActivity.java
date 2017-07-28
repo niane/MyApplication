@@ -60,9 +60,4 @@ public class CoordinatorActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void initInject() {
-
-    }
-
 }

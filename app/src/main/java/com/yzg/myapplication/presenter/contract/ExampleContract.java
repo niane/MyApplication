@@ -1,7 +1,7 @@
 package com.yzg.myapplication.presenter.contract;
 
-import com.yzg.common.base.BaseRecyclerPresenter;
-import com.yzg.common.base.BaseRecyclerView;
+import com.yzg.common.base.mvp.BaseRecyclerPresenter;
+import com.yzg.common.base.mvp.BaseRecyclerView;
 import com.yzg.myapplication.model.bean.GankPublishBean;
 
 /**
@@ -9,7 +9,7 @@ import com.yzg.myapplication.model.bean.GankPublishBean;
  */
 
 public interface ExampleContract {
-    interface ExampleView extends BaseRecyclerView {
+    interface ExampleView extends BaseRecyclerView<GankPublishBean> {
         void showMessage(String msg);
     }
 
