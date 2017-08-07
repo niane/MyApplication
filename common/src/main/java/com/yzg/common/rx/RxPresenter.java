@@ -1,4 +1,4 @@
-package com.yzg.common.base.mvp;
+package com.yzg.common.rx;
 import com.yzg.common.base.mvp.BasePresenter;
 import com.yzg.common.base.mvp.BaseView;
 import com.yzg.common.rx.RxManager;

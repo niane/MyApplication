@@ -28,7 +28,7 @@ import static com.yzg.simplerecyclerview.SimpleRecyclerView.STATUS_REFRESHING;
  *
  */
 
-public abstract class BaseRecyclerActivity<M, P extends BaseRecyclerPresenter> extends BaseMvpActivity<P> implements BaseRecyclerView<M>, SimpleMultiRecyAdapter.OnItemClickListener {
+public abstract class BaseRecyclerActivity<M, P extends BaseRecyclerPresenter> extends BaseMvpActivity<P> implements BaseRecyclerView<M>{
     private SimpleRecyclerView recyclerView;
     private PullToRefreshLayout pullToRefresh;
 
@@ -54,7 +54,6 @@ public abstract class BaseRecyclerActivity<M, P extends BaseRecyclerPresenter> e
         pullToRefresh = (PullToRefreshLayout) rootView.findViewById(R.id.pull_to_refresh);
 
         adapter = mPresenter.createAdapter(this, mList);
-        adapter.setOnItemClickListener(this);
         recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setAdapter(adapter);
         recyclerView.setOnLoadListener(new SimpleRecyclerView.OnLoadListener() {
@@ -88,11 +87,6 @@ public abstract class BaseRecyclerActivity<M, P extends BaseRecyclerPresenter> e
         setRefreshStatus();
         currentPageNO = firstPageNO;
         requestData(currentPageNO, pageSize);
-    }
-
-    @Override
-    public void onItemClick(View view, int i) {
-
     }
 
     protected RecyclerView.LayoutManager getLayoutManager(){

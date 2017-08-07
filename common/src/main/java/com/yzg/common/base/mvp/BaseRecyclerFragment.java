@@ -29,7 +29,7 @@ import static com.yzg.simplerecyclerview.SimpleRecyclerView.STATUS_REFRESHING;
  *
  */
 
-public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> extends BaseMvpFragment<P> implements BaseRecyclerView<M>, SimpleMultiRecyAdapter.OnItemClickListener {
+public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> extends BaseMvpFragment<P> implements BaseRecyclerView<M> {
 
     protected SimpleRecyclerView recyclerView;
     protected PullToRefreshLayout pullToRefresh;
@@ -51,7 +51,6 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
     @Override
     protected void initViews(View rootView) {
         adapter = mPresenter.createAdapter(getContext(), mList);
-        adapter.setOnItemClickListener(this);
 
         pullToRefresh = (PullToRefreshLayout) rootView.findViewById(R.id.pull_to_refresh);
         recyclerView = (SimpleRecyclerView) rootView.findViewById(R.id.recycler_view);
@@ -91,11 +90,6 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
             currentPageNO = firstPageNO;
             requestData(currentPageNO, pageSize);
         }
-    }
-
-    @Override
-    public void onItemClick(View view, int i) {
-
     }
 
     protected RecyclerView.LayoutManager getLayoutManager(){

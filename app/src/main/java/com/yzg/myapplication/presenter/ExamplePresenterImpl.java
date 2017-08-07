@@ -11,7 +11,7 @@ import com.yzg.myapplication.model.bean.GankPublishBean;
 import com.yzg.myapplication.model.net.GankResponse;
 import com.yzg.myapplication.model.net.HttpHelper;
 import com.yzg.myapplication.rx.GankSubscriber;
-import com.yzg.common.base.mvp.RxPresenter;
+import com.yzg.common.rx.RxPresenter;
 import com.yzg.simplerecyclerview.adapter.RecyViewHolder;
 import com.yzg.simplerecyclerview.adapter.SimpleRecyAdapter;
 

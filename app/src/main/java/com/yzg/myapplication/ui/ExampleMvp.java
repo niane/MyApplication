@@ -35,8 +35,4 @@ public class ExampleMvp extends BaseRecyclerActivity<GankPublishBean, ExamplePre
         return new ExamplePresenterImpl();
     }
 
-    @Override
-    public void onItemClick(View view, int i) {
-        super.onItemClick(view, i);
-    }
 }
