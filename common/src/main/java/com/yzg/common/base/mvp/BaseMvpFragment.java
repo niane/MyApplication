@@ -19,4 +19,12 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseFragm
             mPresenter.attachView(this);
         }
     }
+
+    @Override
+    protected void onUnBindViewBefore() {
+        super.onUnBindViewBefore();
+        if(mPresenter != null){
+            mPresenter.detachView();
+        }
+    }
 }
