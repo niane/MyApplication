@@ -36,5 +36,7 @@ dependencies {
     compile deps.multidex
     compile deps.pulltorefresh
     compile deps.simplerecyclerview
+    compile deps.rxandroid
+    compile deps.rxjava
 
 }

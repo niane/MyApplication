@@ -19,4 +19,12 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActiv
             mPresenter.attachView(this);
         }
     }
+
+    @Override
+    protected void onUnBindViewBefore() {
+        super.onUnBindViewBefore();
+        if(mPresenter != null){
+            mPresenter.detachView();
+        }
+    }
 }

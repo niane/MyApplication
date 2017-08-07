@@ -2,7 +2,6 @@ package com.yzg.myapplication.presenter;
 
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 
 import com.yzg.common.app.YException;
 import com.yzg.myapplication.R;
@@ -12,7 +11,7 @@ import com.yzg.myapplication.model.bean.GankPublishBean;
 import com.yzg.myapplication.model.net.GankResponse;
 import com.yzg.myapplication.model.net.HttpHelper;
 import com.yzg.myapplication.rx.GankSubscriber;
-import com.yzg.myapplication.rx.RxPresenter;
+import com.yzg.common.base.mvp.RxPresenter;
 import com.yzg.simplerecyclerview.adapter.RecyViewHolder;
 import com.yzg.simplerecyclerview.adapter.SimpleRecyAdapter;
 

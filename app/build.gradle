@@ -89,7 +89,7 @@ dependencies {
     compile deps.rxandroid
     compile deps.retrofit
     compile deps.converterGson
-    compile deps.rxjavaAdapter
+    compile deps.rxjava_adapter
     compile deps.logging_interceptor
     compile deps.circleimageview
     compile deps.greendao

@@ -2,8 +2,6 @@ package com.yzg.myapplication.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaCodec;
-import android.media.MediaFormat;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
@@ -19,24 +17,20 @@ import android.widget.Toast;
 
 import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
-import com.yzg.myapplication.rx.RxBus;
+import com.yzg.common.rx.RxBus;
 import com.yzg.myapplication.util.PermissionUtils;
 import com.yzg.pulltorefresh.PullToRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.jar.Manifest;
 
 import butterknife.Bind;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
-import rx.subjects.PublishSubject;
-import rx.subjects.Subject;
 
 public class MainActivity extends BaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     private final String TAG = this.getClass().getSimpleName();

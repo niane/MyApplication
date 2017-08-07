@@ -22,7 +22,7 @@ import static com.yzg.simplerecyclerview.SimpleRecyclerView.STATUS_REFRESHING;
  *
  * 对简单请求显示列表界面进行封装<br/>
  *
- * 显示列表部分布局必须include R.com.yunya365.yunyapatient.R.layout.frag_list <br/>
+ * 显示列表部分布局必须include com.yzg.common.R.layout.base_recycler_fragment <br/>
  *
  * 对于不同界面使用不同的 Presenter(必须实现{@link BaseRecyclerPresenter})请求数据 <br/>
  *
@@ -38,14 +38,14 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
     protected int currentPageNO = firstPageNO;
     protected int pageSize = 20;
 
-    private List<M> mList = new ArrayList<>();
-    private SimpleMultiRecyAdapter<M> adapter;
+    protected List<M> mList = new ArrayList<>();
+    protected SimpleMultiRecyAdapter<M> adapter;
 
     protected abstract void requestData(int pageNO, int pageSize);
 
     @Override
     protected int getContentLayoutRes() {
-        return R.layout.frag_list;
+        return R.layout.base_recycler_fragment;
     }
 
     @Override

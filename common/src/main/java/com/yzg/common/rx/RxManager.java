@@ -1,4 +1,4 @@
-package com.yzg.myapplication.rx;
+package com.yzg.common.rx;
 
 import android.support.annotation.NonNull;
 
@@ -42,7 +42,7 @@ public class RxManager {
      * @param holder 订阅持有者
      * @param subscription
      */
-    public void add(@NonNull Object holder, Subscription subscription){
+    public void add(@NonNull Object holder, @NonNull Subscription subscription){
         CompositeSubscription compositeSubscription = compositeSubscriptions.get(holder);
         if(compositeSubscription == null){
             compositeSubscription = new CompositeSubscription();

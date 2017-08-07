@@ -1,4 +1,4 @@
-package com.yzg.myapplication.rx;
+package com.yzg.common.rx;
 
 import android.support.annotation.NonNull;
 
@@ -83,7 +83,7 @@ public class RxBus {
         rxManager.remove(holder);
     }
 
-    public <T> Observable<T> toObservable (Class<T> eventType) {
+    private  <T> Observable<T> toObservable (Class<T> eventType) {
         return bus.ofType(eventType);
     }
 }
