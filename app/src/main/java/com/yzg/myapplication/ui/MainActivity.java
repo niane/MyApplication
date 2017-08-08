@@ -53,12 +53,12 @@ public class MainActivity extends BaseActivity implements ActivityCompat.OnReque
 
     @Override
     protected void initViews(View rootView) {
-//      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//      getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         toolBar.setTitle("");
         toolBarTitle.setText(getResources().getText(R.string.app_name));
         setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         initActivityies();
         mAdapter = new SimpleAdapter(this, mList, android.R.layout.simple_list_item_1, new String[]{"name"}, new int[]{android.R.id.text1});
