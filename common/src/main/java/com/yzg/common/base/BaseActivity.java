@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.yzg.common.util.ActivityCollector;
+
 import butterknife.ButterKnife;
 
 /**
@@ -25,6 +27,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         View rootView = LayoutInflater.from(this).inflate(getContentLayoutRes(), null);
         setContentView(rootView);
 
+        ActivityCollector.addActivity(this);
+
         initIntent(getIntent());
         onRestoreInstanceState(savedInstanceState);
         initWindow();
@@ -37,10 +41,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        ActivityCollector.startActivity(this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         onUnBindViewBefore();
         ButterKnife.unbind(this);
+        ActivityCollector.removeActivity(this);
     }
 
     /**
