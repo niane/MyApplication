@@ -43,6 +43,7 @@
         <activity android:name=".ui.ExampleMvp" />
         <activity android:name=".test.TextureViewTest" android:screenOrientation="landscape"/>
         <activity android:name=".ui.ImageWaterActivity" />
+        <activity android:name=".ui.FragmentViewPagerTest" />
     </application>
 
 </manifest>

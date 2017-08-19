@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
 import com.yzg.myapplication.adapter.FragmentAdapter;
+import com.yzg.myapplication.fragment.LazyFragmentTest;
 import com.yzg.myapplication.fragment.RecyclerFragmentTest;
 
 import java.util.ArrayList;
@@ -28,9 +29,7 @@ public class CoordinatorActivity extends BaseActivity {
     TextView tvSearch;
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
-    private String[] tabs = new String[]{"Tab1", "Tab2", "Tab3", "Tab4", "Tab5", "Tab6", "Tab7", "Tab8"
-                                            ,"Tab1", "Tab2", "Tab3", "Tab4", "Tab5", "Tab6", "Tab7", "Tab8"
-                                            ,"Tab1", "Tab2", "Tab3", "Tab4", "Tab5", "Tab6", "Tab7", "Tab8"};
+    private String[] tabs = new String[12];
 
     @Override
     protected int getContentLayoutRes() {
@@ -40,7 +39,10 @@ public class CoordinatorActivity extends BaseActivity {
     @Override
     protected void initViews(View rootView) {
         for(int i = 0; i < tabs.length; i++){
-            RecyclerFragmentTest fragment = new RecyclerFragmentTest();
+            tabs[i] = "Tab"+i;
+            //RecyclerFragmentTest fragment = new RecyclerFragmentTest();
+            LazyFragmentTest fragment = new LazyFragmentTest();
+            fragment.setTab(tabs[i]);
             fragments.add(fragment);
         }
 
