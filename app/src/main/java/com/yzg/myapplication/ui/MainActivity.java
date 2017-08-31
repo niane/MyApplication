@@ -147,7 +147,8 @@ public class MainActivity extends BaseActivity implements ActivityCompat.OnReque
         SIMPLE_RECYCLE_VIEW(SimpleRecycleViewTest.class, "SimpleRecyViewTest"),
         LINKED_MENU(LinkedMenuTest.class, "LinkedMenu"),
         TEST_DAGGER(ExampleMvp.class, "TestDagger"),
-        IMAGE_WATER(ImageWaterActivity.class, "ImageWater");
+        IMAGE_WATER(ImageWaterActivity.class, "ImageWater"),
+        FRAGMENT_VIEWPAGER(FragmentViewPagerTest.class, "Fragment_viewpager_fragment");
 
         private Class cls;
         private String name;
