@@ -56,6 +56,7 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
         recyclerView = (SimpleRecyclerView) rootView.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setAdapter(adapter);
+        addItemDecoration(recyclerView);
         recyclerView.setOnLoadListener(new SimpleRecyclerView.OnLoadListener() {
             @Override
             public void onLoadMore() {
@@ -94,6 +95,9 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
 
     protected RecyclerView.LayoutManager getLayoutManager(){
         return new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+    }
+
+    protected void addItemDecoration(RecyclerView recyclerView){
     }
 
     /**

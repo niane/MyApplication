@@ -1,6 +1,7 @@
 package com.yzg.myapplication.ui;
 
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.yzg.common.base.mvp.BaseRecyclerActivity;
@@ -8,6 +9,7 @@ import com.yzg.myapplication.R;
 import com.yzg.myapplication.presenter.contract.ExampleContract;
 import com.yzg.myapplication.model.bean.GankPublishBean;
 import com.yzg.myapplication.presenter.ExamplePresenterImpl;
+import com.yzg.simplerecyclerview.SimpleDecoration;
 
 /**
  * Created by yzg on 2017/3/10.
@@ -16,8 +18,8 @@ import com.yzg.myapplication.presenter.ExamplePresenterImpl;
 public class ExampleMvp extends BaseRecyclerActivity<GankPublishBean, ExamplePresenterImpl> implements ExampleContract.ExampleView{
 
     @Override
-    public int getContentLayoutRes() {
-        return R.layout.frag_list_1;
+    protected void addItemDecoration(RecyclerView recyclerView) {
+        recyclerView.addItemDecoration(new SimpleDecoration(this, LinearLayoutManager.VERTICAL, R.drawable.divider_horizontal));
     }
 
     @Override

@@ -56,6 +56,7 @@ public abstract class BaseRecyclerActivity<M, P extends BaseRecyclerPresenter> e
         adapter = mPresenter.createAdapter(this, mList);
         recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setAdapter(adapter);
+        addItemDecoration(recyclerView);
         recyclerView.setOnLoadListener(new SimpleRecyclerView.OnLoadListener() {
             @Override
             public void onLoadMore() {
@@ -91,6 +92,9 @@ public abstract class BaseRecyclerActivity<M, P extends BaseRecyclerPresenter> e
 
     protected RecyclerView.LayoutManager getLayoutManager(){
         return new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+    }
+
+    protected void addItemDecoration(RecyclerView recyclerView){
     }
 
     @Override

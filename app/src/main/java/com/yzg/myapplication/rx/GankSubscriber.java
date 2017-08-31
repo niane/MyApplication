@@ -3,7 +3,6 @@ package com.yzg.myapplication.rx;
 import com.yzg.common.app.ExceptionHandler;
 import com.yzg.common.app.ServerException;
 import com.yzg.common.app.YException;
-import com.yzg.common.util.ConnectionUtil;
 import com.yzg.myapplication.model.net.GankResponse;
 
 import rx.Subscriber;

@@ -48,11 +48,10 @@ public class ExceptionHandler{
             return new YException(NETWORK_ERROR, "网络错误", exception);
         }
 
-        return new YException(UNKNOWN, "未知错误", exception);
-    }
+        if(exception instanceof ServerException){
+            return new YException(SERVER_ERROR_DATA, "服务器异常", exception);
+        }
 
-    public static YException handleException(ServerException exception){
-        YLog.e("ExceptionHandler", exception.getMessage());
-        return new YException(SERVER_ERROR_DATA, "服务器异常", exception);
+        return new YException(UNKNOWN, "未知错误", exception);
     }
 }
