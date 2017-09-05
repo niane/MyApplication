@@ -48,8 +48,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    AreaDao provideAreaDao(GDataBaseHelper helper){
-        return new GAreaDao(helper);
+    AreaDao provideAreaDao(LDataBaseHelper helper){
+        return new LAreaDao(helper);
     }
 
     @Provides

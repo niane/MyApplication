@@ -12,12 +12,13 @@
 # 指定不去忽略非公共库的类
 -dontskipnonpubliclibraryclasses
 
+# 指定不去忽略非公共的库的类的成员
+-dontskipnonpubliclibraryclassmembers
+
 # 这句话能够使我们的项目混淆后产生映射文件
 # 包含有类名->混淆后类名的映射关系
 -verbose
-
-# 指定不去忽略非公共库的类成员
--dontskipnonpubliclibraryclassmembers
+-printmapping proguardMapping.txt
 
 # 不做预校验，preverify是proguard的四个步骤之一，Android不需要preverify，去掉这一步能够加快混淆速度。
 -dontpreverify
@@ -92,11 +93,27 @@
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 
-#javax
--keep interface javax.annotation.**
--keep class javax.annotation.**
--keep class javax.inject.* { *; }
+# 保留Parcelable序列化的类不被混淆
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
 
+# 保留Serializable序列化的类不被混淆
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+#javax
+-keep interface javax.annotation.** {*;}
+#-keep class javax.annotation.** {*;}
+#-keep class javax.inject.* { *; }
+-dontwarn javax.annotation.**
+-dontwarn javax.inject.**
 
 # butterknife
 -keep class butterknife.** { *; }
@@ -119,11 +136,10 @@
 -dontwarn com.google.common.**
 
 ## GSON 2.2.4 specific rules ##
-#-keepattributes EnclosingMethod
 
-# Gson specific classes
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
 
 
 # Rxjava 1.3.0
@@ -164,56 +180,50 @@
 -keep class * extends dagger.internal.Binding
 -keep class * extends dagger.internal.ModuleAdapter
 -keep class * extends dagger.internal.StaticInjection
--dontwarn dagger.**
+-dontwarn dagger.shaded.auto.common.**
 -dontwarn com.squareup.javapoet.**
 
 
-# ormlite
+# ormlite 5.0
+-keepattributes *DatabaseField*
+-keepattributes *DatabaseTable*
+-keepattributes *SerializedName*
 
--keep class com.j256.**
-
--keepclassmembers class com.j256.** { *; }
-
--keep enum com.j256.**
-
--keepclassmembers enum com.j256.** { *; }
-
--keep interface com.j256.**
-
--keepclassmembers interface com.j256.** { *; }
-
+#-keep class com.j256.** { *; }
+-keep enum com.j256.** { *; }
+-keep interface com.j256.** {*;}
+-keep class com.j256.ormlite.misc.** {*;}
 -dontwarn com.j256.**
 
-
-# GreenDao rules
-# Source: http://greendao-orm.com/documentation/technical-faq
-#
--keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
-    public static java.lang.String TABLENAME;
+# greendao 3.2.2
+-keep class org.greenrobot.greendao.**{*;}
+-keep public interface org.greenrobot.greendao.**
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
 }
 -keep class **$Properties
+-dontwarn org.greenrobot.greendao.**
+-dontwarn org.eclipse.**
 
 
 # OkHttp
--keep class okhttp3.** { *; }
--keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
-
-
-# Retrofit 1.X
-
--keep class com.squareup.okhttp.** { *; }
--keep class retrofit.** { *; }
--keep interface com.squareup.okhttp.** { *; }
-
--dontwarn com.squareup.okhttp.**
 -dontwarn okio.**
--dontwarn retrofit.**
--dontwarn rx.**
 
+
+# Retrofit
+
+-keep class retrofit2.** { *; }
+-keep interface retrofit2.** {*;}
 -keepclasseswithmembers class * {
-    @retrofit.http.* <methods>;
+    @retrofit2.http.* <methods>;
 }
+-dontwarn retrofit2.**
+
+
 
 # If in your rest service interface you use methods with Callback argument.
 -keepattributes Exceptions
+
+-keep class com.yzg.myapplication.model.bean.** {*;}
+-keep class com.yzg.myapplication.model.net.** {*;}

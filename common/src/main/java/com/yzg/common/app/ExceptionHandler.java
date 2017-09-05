@@ -1,5 +1,7 @@
 package com.yzg.common.app;
 
+import android.util.Log;
+
 import com.yzg.common.util.YLog;
 
 import java.net.ConnectException;
@@ -30,6 +32,7 @@ public class ExceptionHandler{
     private ExceptionHandler(){}
 
     public static YException handleException(Throwable exception){
+        exception.printStackTrace();
         YLog.e("ExceptionHandler", exception.getMessage());
 
         if(exception instanceof UnknownHostException || exception instanceof ConnectException){
