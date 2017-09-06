@@ -2,14 +2,13 @@ package com.yzg.myapplication.presenter;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.yzg.common.app.YException;
 import com.yzg.myapplication.R;
 import com.yzg.myapplication.app.MyApplication;
 import com.yzg.myapplication.presenter.contract.ExampleContract;
 import com.yzg.myapplication.model.bean.GankPublishBean;
-import com.yzg.myapplication.model.net.GankResponse;
+import com.yzg.myapplication.model.bean.GankResponse;
 import com.yzg.myapplication.model.net.HttpHelper;
 import com.yzg.myapplication.rx.GankSubscriber;
 import com.yzg.common.rx.RxPresenter;

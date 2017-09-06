@@ -1,4 +1,4 @@
-package com.yzg.myapplication.model.net;
+package com.yzg.myapplication.model.bean;
 
 /**
  * Created by yzg on 2017/5/2.

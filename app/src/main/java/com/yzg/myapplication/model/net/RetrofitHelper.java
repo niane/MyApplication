@@ -1,6 +1,7 @@
 package com.yzg.myapplication.model.net;
 
 import com.yzg.myapplication.model.bean.GankPublishBean;
+import com.yzg.myapplication.model.bean.GankResponse;
 
 import java.util.List;
 
