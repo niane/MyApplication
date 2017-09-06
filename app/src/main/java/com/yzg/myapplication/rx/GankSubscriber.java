@@ -1,7 +1,7 @@
 package com.yzg.myapplication.rx;
 
-import com.yzg.common.app.ExceptionHandler;
-import com.yzg.common.app.ServerException;
+import com.yzg.myapplication.app.ExceptionHandler;
+import com.yzg.myapplication.app.ServerException;
 import com.yzg.common.app.YException;
 import com.yzg.myapplication.model.bean.GankResponse;
 

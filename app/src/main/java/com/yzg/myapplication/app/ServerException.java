@@ -1,4 +1,4 @@
-package com.yzg.common.app;
+package com.yzg.myapplication.app;
 
 /**
  * Created by yzg on 2017/7/26.

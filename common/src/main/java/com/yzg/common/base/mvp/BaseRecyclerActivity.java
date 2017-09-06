@@ -5,12 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.yzg.common.R;
-import com.yzg.common.app.ExceptionHandler;
 import com.yzg.common.app.YException;
 import com.yzg.pulltorefresh.PullToRefreshLayout;
 import com.yzg.simplerecyclerview.SimpleRecyclerView;
 import com.yzg.simplerecyclerview.adapter.SimpleMultiRecyAdapter;
 
+import java.net.ConnectException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,12 +131,20 @@ public abstract class BaseRecyclerActivity<M, P extends BaseRecyclerPresenter> e
                 pullToRefresh.finish();
             }
 
-            if(e.getCode() == ExceptionHandler.NETWORK_ACCESS){
+            if(checkNetworkException(e)){
                 setNetWorkErrorStatus(e);
             }else {
                 setRefreshErrorStatus(e);
             }
         }
+    }
+
+    protected boolean checkNetworkException(YException exception){
+        if(exception.getThrowable() instanceof UnknownHostException
+                || exception.getThrowable() instanceof ConnectException){
+            return true;
+        }
+        return false;
     }
 
     protected void setEmptyStatus(){

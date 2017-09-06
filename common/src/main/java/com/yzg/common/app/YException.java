@@ -9,11 +9,6 @@ public class YException {
     private String message;
     private Throwable throwable;
 
-    public YException(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
     public YException(int code, String message, Throwable throwable) {
         this.code = code;
         this.message = message;

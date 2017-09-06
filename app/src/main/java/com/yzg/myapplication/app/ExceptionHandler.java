@@ -1,7 +1,6 @@
-package com.yzg.common.app;
+package com.yzg.myapplication.app;
 
-import android.util.Log;
-
+import com.yzg.common.app.YException;
 import com.yzg.common.util.YLog;
 
 import java.net.ConnectException;
