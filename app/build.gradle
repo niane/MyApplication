@@ -87,6 +87,7 @@ dependencies {
     })
     testCompile deps.junit
     compile deps.cardview
+    compile deps.constraint_layout
     compile deps.rxandroid
     compile deps.retrofit
     compile deps.converterGson
@@ -101,6 +102,8 @@ dependencies {
 
     compile deps.dagger
     compile deps.dagger_compiler
+
+    compile 'pub.devrel:easypermissions:1.0.0'
 
     compile project(':common')
 

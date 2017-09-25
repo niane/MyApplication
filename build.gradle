@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
 //        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
 //        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -41,6 +41,7 @@ ext.deps = [
         design              : 'com.android.support:design:' + supportVersion,
         supportV4           : 'com.android.support:support-v4:' + supportVersion,
         cardview            : 'com.android.support:cardview-v7:' + supportVersion,
+        constraint_layout   : 'com.android.support.constraint:constraint-layout:1.0.2',
 
         circleimageview     : 'de.hdodenhof:circleimageview:2.1.0',
 

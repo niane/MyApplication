@@ -2,6 +2,7 @@ package com.yzg.myapplication.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
@@ -104,6 +105,7 @@ public class MainActivity extends BaseActivity implements ActivityCompat.OnReque
             }
         });
         RxBus.getInstance().post("This is a RxBus event test");
+
     }
 
     @Override
@@ -148,7 +150,8 @@ public class MainActivity extends BaseActivity implements ActivityCompat.OnReque
         LINKED_MENU(LinkedMenuTest.class, "LinkedMenu"),
         TEST_DAGGER(ExampleMvp.class, "TestDagger"),
         IMAGE_WATER(ImageWaterActivity.class, "ImageWater"),
-        FRAGMENT_VIEWPAGER(FragmentViewPagerTest.class, "Fragment_viewpager_fragment");
+        FRAGMENT_VIEWPAGER(FragmentViewPagerTest.class, "Fragment_viewpager_fragment"),
+        CAMERA_PREVIEW(PreviewActivity.class, "Camera_preview");
 
         private Class cls;
         private String name;
