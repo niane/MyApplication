@@ -106,5 +106,6 @@ dependencies {
     compile 'pub.devrel:easypermissions:1.0.0'
 
     compile project(':common')
+    compile project(':zxing')
 
 }

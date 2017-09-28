@@ -8,25 +8,40 @@ import android.view.SurfaceHolder;
  */
 
 public class CameraManager {
-    private ICameraHelper cameraHelper;
     private Context context;
+    private ICameraHelper cameraHelper;
+    private ICameraHelper.PreviewCallback previewCallback;
 
     public CameraManager(Context context) {
         this.context = context;
-        cameraHelper = new CameraHelper();
+        cameraHelper = new Camera2Helper(context);
     }
 
-    public void openCamera(SurfaceHolder surfaceHolder){
+    public synchronized void openCamera(SurfaceHolder surfaceHolder){
         if(!cameraHelper.isOpenning()){
             cameraHelper.openCamera(0, surfaceHolder);
-            cameraHelper.startPreview();
         }
     }
 
-    public void closeCamera(){
+    public synchronized void startPreview(){
+        if(!cameraHelper.isPreviewing()) {
+            cameraHelper.startPreview(previewCallback);
+        }
+    }
+
+    public synchronized void stopPreview(){
+        if(cameraHelper.isPreviewing()){
+            cameraHelper.stopPreview();
+        }
+    }
+
+    public synchronized void releaseCamera(){
         if(cameraHelper.isOpenning()){
-            cameraHelper.closeCamera();
+            cameraHelper.releaseCamera();
         }
     }
 
+    public void setPreviewCallback(ICameraHelper.PreviewCallback previewCallback) {
+        this.previewCallback = previewCallback;
+    }
 }

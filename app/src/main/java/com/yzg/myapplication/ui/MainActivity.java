@@ -16,6 +16,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.client.android.CaptureActivity;
 import com.yzg.common.base.BaseActivity;
 import com.yzg.myapplication.R;
 import com.yzg.common.rx.RxBus;
@@ -151,7 +152,8 @@ public class MainActivity extends BaseActivity implements ActivityCompat.OnReque
         TEST_DAGGER(ExampleMvp.class, "TestDagger"),
         IMAGE_WATER(ImageWaterActivity.class, "ImageWater"),
         FRAGMENT_VIEWPAGER(FragmentViewPagerTest.class, "Fragment_viewpager_fragment"),
-        CAMERA_PREVIEW(PreviewActivity.class, "Camera_preview");
+        CAMERA_PREVIEW(PreviewActivity.class, "Camera_preview"),
+        ZXING_CAPTURE(CaptureActivity.class, "Zxing_capture");
 
         private Class cls;
         private String name;

@@ -1,5 +1,6 @@
 package com.yzg.myapplication.model.camera;
 
+
 import android.view.SurfaceHolder;
 
 /**
@@ -7,8 +8,34 @@ import android.view.SurfaceHolder;
  */
 
 public interface ICameraHelper {
+    int STATE_RELEASED = 0;
+    int STATE_OPENNING = 1;
+    int STATE_PREVIEWING = 2;
+
     void openCamera(int cameraId, SurfaceHolder surfaceHolder);
-    void startPreview();
-    void closeCamera();
+
+    void releaseCamera();
+
     boolean isOpenning();
+
+    boolean isPreviewing();
+
+    void startPreview(PreviewCallback previewCallback);
+
+    void stopPreview();
+
+    void takePicture(TakePictureCallback pictureCallback);
+
+    interface PreviewCallback{
+        void onPreviewFrame(byte[] data);
+    }
+
+    interface TakePictureCallback{
+        void onPictureTaken(byte[] data);
+    }
+
+    interface OpenCallback{
+        void onOpened();
+        void onFail();
+    }
 }
