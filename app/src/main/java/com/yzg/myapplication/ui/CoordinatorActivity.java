@@ -40,9 +40,9 @@ public class CoordinatorActivity extends BaseActivity {
     protected void initViews(View rootView) {
         for(int i = 0; i < tabs.length; i++){
             tabs[i] = "Tab"+i;
-            //RecyclerFragmentTest fragment = new RecyclerFragmentTest();
-            LazyFragmentTest fragment = new LazyFragmentTest();
-            fragment.setTab(tabs[i]);
+            RecyclerFragmentTest fragment = new RecyclerFragmentTest();
+//            LazyFragmentTest fragment = new LazyFragmentTest();
+//            fragment.setTab(tabs[i]);
             fragments.add(fragment);
         }
 

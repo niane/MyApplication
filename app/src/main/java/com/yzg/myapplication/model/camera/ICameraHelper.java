@@ -35,7 +35,8 @@ public interface ICameraHelper {
     }
 
     interface OpenCallback{
-        void onOpened();
+        void onOpened(ICameraConfigure cameraConfigure);
+
         void onFail();
     }
 }

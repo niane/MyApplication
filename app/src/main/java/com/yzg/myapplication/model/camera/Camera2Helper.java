@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.util.Size;
 import android.view.SurfaceHolder;
 
 import java.util.Arrays;
@@ -22,7 +23,6 @@ import java.util.Arrays;
 public class Camera2Helper implements ICameraHelper {
     private String TAG = this.getClass().getSimpleName();
     private Context mContext;
-    private SurfaceHolder mSurfaceHolder;
     private android.hardware.camera2.CameraManager mCameraManager;
     private CameraDevice mCameraDevice;
     private CameraCaptureSession mCaptureSession;
@@ -30,6 +30,9 @@ public class Camera2Helper implements ICameraHelper {
     private PreviewCallback mPreviewback;
 
     private int state = STATE_RELEASED;
+
+    private SurfaceHolder mSurfaceHolder;
+    private Size previewSize;
 
     private CameraDevice.StateCallback mStateCallback = new CameraDevice.StateCallback() {
         @Override
@@ -89,13 +92,14 @@ public class Camera2Helper implements ICameraHelper {
             if(mCaptureSession == null){
                 createPreviewSession();
             }else {
-                state = STATE_PREVIEWING;
-                mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
-                        CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                 try {
+                    state = STATE_PREVIEWING;
+                    mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
+                            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                     mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), null, null);
                 } catch (CameraAccessException e) {
                     e.printStackTrace();
+                    state = STATE_OPENNING;
                 }
             }
         }
@@ -122,13 +126,13 @@ public class Camera2Helper implements ICameraHelper {
     @Override
     public void releaseCamera() {
         state = STATE_RELEASED;
-        if (mCameraDevice != null) {
-            mCameraDevice.close();
-            mCameraDevice = null;
-        }
         if(mCaptureSession != null){
             mCaptureSession.close();
             mCaptureSession = null;
+        }
+        if (mCameraDevice != null) {
+            mCameraDevice.close();
+            mCameraDevice = null;
         }
     }
 

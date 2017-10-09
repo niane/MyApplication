@@ -76,6 +76,7 @@ public class AutoPreview extends FrameLayout implements SurfaceHolder.Callback {
             cameraManager.startPreview();
         }else {
             //跳转到该页面或重新启动app
+            surfaceHolder.removeCallback(this);
             surfaceHolder.addCallback(this);
         }
     }

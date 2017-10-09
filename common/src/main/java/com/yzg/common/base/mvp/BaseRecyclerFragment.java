@@ -67,6 +67,7 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
 
             @Override
             public void onRefresh() {
+                pullToRefresh.setEnabled(false);
                 mList.clear();
                 setRefreshStatus();
                 currentPageNO = firstPageNO;
@@ -74,6 +75,7 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
             }
         });
 
+        pullToRefresh.setEnabled(false);
         pullToRefresh.setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -122,12 +124,15 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
 
         if(list.size() == 0){
             if(pageNO == firstPageNO){
+                pullToRefresh.setEnabled(false);
                 setEmptyStatus();
             }else {
+                pullToRefresh.setEnabled(true);
                 currentPageNO--;
                 setNomoreStatus();
             }
         }else {
+            pullToRefresh.setEnabled(true);
             recyclerView.setStatus(SimpleRecyclerView.STATUS_DEFAULT);
         }
     }
@@ -140,6 +145,9 @@ public abstract class BaseRecyclerFragment<M, P extends BaseRecyclerPresenter> e
         }else {
             if(pullToRefresh.isRefreshing()){
                 pullToRefresh.finish();
+            }
+            if(mList.isEmpty()) {
+                pullToRefresh.setEnabled(false);
             }
 
             if(checkNetworkException(e)){
