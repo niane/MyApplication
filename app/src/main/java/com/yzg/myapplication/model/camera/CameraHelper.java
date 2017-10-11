@@ -1,90 +1,49 @@
 package com.yzg.myapplication.model.camera;
 
-import android.content.Context;
-import android.hardware.Camera;
-import android.view.SurfaceHolder;
-
-import java.io.IOException;
-
 /**
  * Created by yzg on 2017/9/25.
  */
+public abstract class CameraHelper {
 
-public class CameraHelper implements ICameraHelper {
-    private Context mContext;
-    private Camera mCamera;
-    private PreviewCallback mPreviewCallback;
+    protected OpenedCallback mOpenedCallback;
 
-    private int state = STATE_RELEASED;
+    protected CameraPreview mCameraPreview;
 
-    public CameraHelper(Context mContext) {
-        this.mContext = mContext;
+    public CameraHelper(OpenedCallback mOpenedCallback, CameraPreview mCameraPreview) {
+        this.mOpenedCallback = mOpenedCallback;
+        this.mCameraPreview = mCameraPreview;
     }
 
-    @Override
-    public void openCamera(int cameraId, SurfaceHolder surfaceHolder) {
-        if (state == STATE_RELEASED) {
-            try {
-                state = STATE_OPENNING;
-                mCamera = Camera.open();
-                if (mCamera != null) {
-                    mCamera.setPreviewDisplay(surfaceHolder);
-                }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-                releaseCamera();
-            }
-        }
+    abstract boolean isOpened();
+
+    public abstract void start();
+
+    public abstract void stop();
+
+//    abstract void startPreview();
+//
+//    abstract void stopPreview();
+
+    public abstract void takePicture(TakePictureCallback pictureCallback);
+
+    public abstract void setPreviewCallback(PreviewCallback previewCallback);
+
+    interface PreviewCallback{
+        void onPreviewFrame(byte[] data);
     }
 
-    @Override
-    public void releaseCamera() {
-        state = STATE_RELEASED;
-        if(mCamera != null) {
-            mCamera.release();
-            mCamera = null;
-        }
-
+    interface TakePictureCallback{
+        void onPictureTaken(byte[] data);
     }
 
-    @Override
-    public boolean isOpenning() {
-        return state != STATE_RELEASED;
+    interface OpenedCallback{
+
+        void onOpened(CameraConfigure cameraConfigure);
+
+        void onFail();
     }
 
-    @Override
-    public boolean isPreviewing() {
-        return state == STATE_PREVIEWING;
-    }
-
-    @Override
-    public void startPreview(PreviewCallback previewCallback) {
-        mPreviewCallback = previewCallback;
-        if (state == STATE_OPENNING) {
-            state = STATE_PREVIEWING;
-
-            if (mPreviewCallback != null) {
-                mCamera.setPreviewCallback(new Camera.PreviewCallback() {
-                    @Override
-                    public void onPreviewFrame(byte[] data, Camera camera) {
-                        mPreviewCallback.onPreviewFrame(data);
-                    }
-                });
-            }
-            mCamera.startPreview();
-        }
-    }
-
-    @Override
-    public void stopPreview() {
-        if (state == STATE_PREVIEWING) {
-            state = STATE_OPENNING;
-            mCamera.stopPreview();
-        }
-    }
-
-    @Override
-    public void takePicture(TakePictureCallback pictureCallback) {
-
+    public static CameraHelper create(OpenedCallback openedCallback, CameraPreview cameraPreview){
+        return new CameraHelperImpl(openedCallback, cameraPreview);
     }
 }

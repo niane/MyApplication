@@ -1,17 +1,16 @@
 package com.yzg.myapplication.model.camera;
 
+import android.graphics.Point;
+
+import java.util.List;
+
 /**
  * Created by yzg on 2017/9/29.
  */
 
-public class CameraConfigure implements ICameraConfigure {
-    @Override
-    public void setPreviewCallback(ICameraHelper.PreviewCallback previewCallback) {
+public interface CameraConfigure {
 
-    }
+    List<Point> getSupportedPreviewSizes();
 
-    @Override
-    public ICameraHelper.PreviewCallback getPreviewCallback() {
-        return null;
-    }
+    List<Point> getSupportedPictureSizes();
 }

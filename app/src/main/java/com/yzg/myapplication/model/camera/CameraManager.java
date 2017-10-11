@@ -9,39 +9,39 @@ import android.view.SurfaceHolder;
 
 public class CameraManager {
     private Context context;
-    private ICameraHelper cameraHelper;
-    private ICameraHelper.PreviewCallback previewCallback;
+    private CameraHelper cameraHelper;
+    private CameraHelper.PreviewCallback previewCallback;
 
     public CameraManager(Context context) {
         this.context = context;
-        cameraHelper = new Camera2Helper(context);
+//        cameraHelper = new CameraHelperImpl(context);
     }
 
     public synchronized void openCamera(SurfaceHolder surfaceHolder){
-        if(!cameraHelper.isOpenning()){
-            cameraHelper.openCamera(0, surfaceHolder);
-        }
+//        if(!cameraHelper.isOpenning()){
+//            cameraHelper.openCamera(0, surfaceHolder);
+//        }
     }
 
     public synchronized void startPreview(){
-        if(!cameraHelper.isPreviewing()) {
-            cameraHelper.startPreview(previewCallback);
-        }
+//        if(!cameraHelper.isPreviewing()) {
+//            cameraHelper.startPreview(previewCallback);
+//        }
     }
 
     public synchronized void stopPreview(){
-        if(cameraHelper.isPreviewing()){
-            cameraHelper.stopPreview();
-        }
+//        if(cameraHelper.isPreviewing()){
+//            cameraHelper.stopPreview();
+//        }
     }
 
     public synchronized void releaseCamera(){
-        if(cameraHelper.isOpenning()){
-            cameraHelper.releaseCamera();
-        }
+//        if(cameraHelper.isOpenning()){
+//            cameraHelper.releaseCamera();
+//        }
     }
 
-    public void setPreviewCallback(ICameraHelper.PreviewCallback previewCallback) {
+    public void setPreviewCallback(CameraHelper.PreviewCallback previewCallback) {
         this.previewCallback = previewCallback;
     }
 }

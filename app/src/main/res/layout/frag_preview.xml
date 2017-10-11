@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.yzg.myapplication.widget.AutoPreview
+    <com.yzg.myapplication.widget.TexturePreview
         android:id="@+id/auto_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

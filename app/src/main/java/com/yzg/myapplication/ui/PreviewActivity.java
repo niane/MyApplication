@@ -10,24 +10,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.yzg.myapplication.R;
+import com.yzg.myapplication.model.camera.CameraHelper;
 import com.yzg.myapplication.model.camera.CameraManager;
 import com.yzg.myapplication.widget.AutoPreview;
+import com.yzg.myapplication.widget.SurfacePreview;
+import com.yzg.myapplication.widget.TexturePreview;
 
 /**
  * Created by yzg on 2017/9/25.
  */
 
 public class PreviewActivity extends AppCompatActivity {
-    private AutoPreview autoPreview;
+    private static final String Tag = PreviewActivity.class.getSimpleName();
+    private TexturePreview autoPreview;
     private CameraManager cameraManager;
     private Button btnJump;
     private boolean isPreviewing = true;
+    private CameraHelper cameraHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_preview);
-        autoPreview = (AutoPreview) findViewById(R.id.auto_preview);
+        autoPreview = (TexturePreview) findViewById(R.id.auto_preview);
         btnJump = (Button) findViewById(R.id.btn_jump);
         btnJump.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,32 +40,35 @@ public class PreviewActivity extends AppCompatActivity {
 //                ViewGroup.LayoutParams params = autoPreview.getLayoutParams();
 //                params.height = 500;
 //                autoPreview.requestLayout();
-//                startActivity(new Intent(PreviewActivity.this, ExampleMvp.class));
-                if(isPreviewing){
-                    cameraManager.stopPreview();
-                    isPreviewing = false;
-                }else {
-                    cameraManager.startPreview();
-                    isPreviewing = true;
-                }
+                startActivity(new Intent(PreviewActivity.this, ExampleMvp.class));
+//                if(isPreviewing){
+//                    cameraManager.stopPreview();
+//                    isPreviewing = false;
+//                }else {
+//                    cameraManager.startPreview();
+//                    isPreviewing = true;
+//                }
             }
         });
 
-        cameraManager = new CameraManager(this);
-        autoPreview.setCameraManager(cameraManager);
+        cameraHelper = CameraHelper.create(null, autoPreview);
+//        cameraManager = new CameraManager(this);
+//        autoPreview.setCameraManager(cameraManager);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        autoPreview.onResume();
-        Log.e("test", "onresume");
+//        autoPreview.onResume();
+        Log.e(Tag, "onresume");
+        cameraHelper.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        autoPreview.onPause();
-        Log.e("test", "onPause");
+//        autoPreview.onPause();
+        Log.e(Tag, "onPause");
+        cameraHelper.stop();
     }
 }
