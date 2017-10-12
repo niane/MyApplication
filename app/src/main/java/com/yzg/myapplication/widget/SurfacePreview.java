@@ -2,7 +2,9 @@ package com.yzg.myapplication.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.SurfaceTexture;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -82,5 +84,29 @@ public class SurfacePreview extends SurfaceView implements SurfaceHolder.Callbac
     @Override
     public void setSurfaceChangedCallback(SurfaceChangedCallback changedCallback) {
         this.changedCallback = changedCallback;
+    }
+
+    @Override
+    public int getDisplayOrientation() {
+        return ViewCompat.getDisplay(this).getRotation();
+    }
+
+    @Override
+    public int getSurfaceWidth() {
+        return mWidth;
+    }
+
+    @Override
+    public int getSurfaceHeight() {
+        return mHeight;
+    }
+
+    @Override
+    public void setSurfaceBufferSize(Point size) {
+        if(size.x == mWidth && size.y == mHeight) return;
+
+        mWidth = size.x;
+        mHeight = size.y;
+        getHolder().setFixedSize(size.x, size.y);
     }
 }

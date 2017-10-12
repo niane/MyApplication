@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.yzg.myapplication.R;
@@ -31,6 +33,9 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
+
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.frag_preview);
         autoPreview = (TexturePreview) findViewById(R.id.auto_preview);
         btnJump = (Button) findViewById(R.id.btn_jump);
@@ -38,7 +43,8 @@ public class PreviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ViewGroup.LayoutParams params = autoPreview.getLayoutParams();
-                params.height = 500;
+                params.height = 720;
+                params.width = 480;
                 autoPreview.requestLayout();
 //                startActivity(new Intent(PreviewActivity.this, ExampleMvp.class));
 //                if(isPreviewing){

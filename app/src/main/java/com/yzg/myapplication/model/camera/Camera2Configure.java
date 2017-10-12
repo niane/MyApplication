@@ -28,4 +28,19 @@ public class Camera2Configure implements CameraConfigure {
     public List<Point> getSupportedPictureSizes() {
         return null;
     }
+
+    @Override
+    public Point getOptimalPreviewSize(int width, int height) {
+        return null;
+    }
+
+    @Override
+    public Point configurePreviewSize(int width, int height) {
+        return null;
+    }
+
+    @Override
+    public void configureDisplayOriention(int displayOriention) {
+
+    }
 }

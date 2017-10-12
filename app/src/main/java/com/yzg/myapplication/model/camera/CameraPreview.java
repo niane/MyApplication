@@ -1,5 +1,6 @@
 package com.yzg.myapplication.model.camera;
 
+import android.graphics.Point;
 import android.view.SurfaceHolder;
 
 /**
@@ -15,6 +16,14 @@ public interface CameraPreview {
     Object getSurfaceTexture();
 
     void setSurfaceChangedCallback(SurfaceChangedCallback changedCallback);
+
+    int getDisplayOrientation();
+
+    int getSurfaceWidth();
+
+    int getSurfaceHeight();
+
+    void setSurfaceBufferSize(Point size);
 
     interface SurfaceChangedCallback{
         void onSurfaceChanged();

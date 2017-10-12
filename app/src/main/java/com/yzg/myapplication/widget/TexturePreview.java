@@ -2,7 +2,9 @@ package com.yzg.myapplication.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.SurfaceTexture;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -14,7 +16,7 @@ import com.yzg.myapplication.model.camera.CameraPreview;
  * Created by yzg on 2017/10/11.
  */
 
-@TargetApi(14)
+@TargetApi(15)
 public class TexturePreview extends TextureView implements TextureView.SurfaceTextureListener, CameraPreview {
     private static final String Tag = TexturePreview.class.getSimpleName();
     private int mWidth, mHeight;
@@ -58,6 +60,30 @@ public class TexturePreview extends TextureView implements TextureView.SurfaceTe
     @Override
     public void setSurfaceChangedCallback(SurfaceChangedCallback changedCallback) {
         this.changedCallback = changedCallback;
+    }
+
+    @Override
+    public int getDisplayOrientation() {
+        return ViewCompat.getDisplay(this).getRotation();
+    }
+
+    @Override
+    public int getSurfaceWidth() {
+        return mWidth;
+    }
+
+    @Override
+    public int getSurfaceHeight() {
+        return mHeight;
+    }
+
+    @Override
+    public void setSurfaceBufferSize(Point size) {
+        if(size.x == mWidth && size.y == mHeight) return;
+
+        mWidth = size.x;
+        mHeight = size.y;
+        getSurfaceTexture().setDefaultBufferSize(size.x, size.y);
     }
 
     @Override

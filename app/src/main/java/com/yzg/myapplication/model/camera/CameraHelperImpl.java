@@ -1,9 +1,8 @@
 package com.yzg.myapplication.model.camera;
 
-import android.content.Context;
+import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.io.IOException;
@@ -36,7 +35,6 @@ public class CameraHelperImpl extends CameraHelper {
         cameraPreview.setSurfaceChangedCallback(new CameraPreview.SurfaceChangedCallback() {
             @Override
             public void onSurfaceChanged() {
-                //TODO 重新设置预览尺寸
                 startPreview();
             }
         });
@@ -58,7 +56,7 @@ public class CameraHelperImpl extends CameraHelper {
             stop();
         }
         mCamera = Camera.open(mCameraId);
-        mCameraConfigure = new CameraConfigureImpl(mCamera);
+        mCameraConfigure = new CameraConfigureImpl(mCamera, mCameraInfo);
 
         if(mPreviewCallback != null) {
             mCamera.setPreviewCallback(new Camera.PreviewCallback() {
@@ -68,7 +66,26 @@ public class CameraHelperImpl extends CameraHelper {
                 }
             });
         }
-        //TODO 设置预览尺寸和图片尺寸
+
+    }
+
+    private void configureCamera(){
+        //TODO 设置图片尺寸
+        mCameraConfigure.configureDisplayOriention(mCameraPreview.getDisplayOrientation());
+        Point size = mCameraConfigure.configurePreviewSize(mCameraPreview.getSurfaceWidth(), mCameraPreview.getSurfaceHeight());
+        mCamera.autoFocus(new Camera.AutoFocusCallback() {
+            @Override
+            public void onAutoFocus(boolean success, Camera camera) {
+                if (success) {
+                    camera.cancelAutoFocus();// 只有加上了这一句，才会自动对焦
+                }
+            }
+        });
+//        if(mCameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+//            mCameraPreview.setSurfaceBufferSize(new Point(size.y, size.x));
+//        }else {
+//            mCameraPreview.setSurfaceBufferSize(size);
+//        }
     }
 
     private void startPreview(){
@@ -78,14 +95,16 @@ public class CameraHelperImpl extends CameraHelper {
             }
 
             if(mCameraPreview.isReady()) {
+                configureCamera();
+
                 if(mCameraPreview instanceof SurfaceView) {
                     mCamera.setPreviewDisplay(mCameraPreview.getSurfaceHolder());
                 }else {
                     mCamera.setPreviewTexture((SurfaceTexture) mCameraPreview.getSurfaceTexture());
                 }
+                mShowingPreview = true;
+                mCamera.startPreview();
             }
-            mShowingPreview = true;
-            mCamera.startPreview();
         } catch (IOException e) {
             e.printStackTrace();
             stop();
@@ -101,10 +120,11 @@ public class CameraHelperImpl extends CameraHelper {
     public void start() {
         chooseCamera();
         openCamera();
-        if(mCameraPreview == null){
+        /* if(mCameraPreview == null){
             mShowingPreview = true;
             mCamera.startPreview();
-        }else if(mCameraPreview.isReady()){
+        }else */
+        if(mCameraPreview.isReady()){
             startPreview();
         }
     }
@@ -127,6 +147,4 @@ public class CameraHelperImpl extends CameraHelper {
     public void setPreviewCallback(PreviewCallback previewCallback) {
         mPreviewCallback = previewCallback;
     }
-
-
 }
