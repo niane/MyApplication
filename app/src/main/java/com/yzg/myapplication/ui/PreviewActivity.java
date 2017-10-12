@@ -37,10 +37,10 @@ public class PreviewActivity extends AppCompatActivity {
         btnJump.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = autoPreview.getLayoutParams();
-                params.height = 500;
-                autoPreview.requestLayout();
-//                startActivity(new Intent(PreviewActivity.this, ExampleMvp.class));
+//                ViewGroup.LayoutParams params = autoPreview.getLayoutParams();
+//                params.height = 500;
+//                autoPreview.requestLayout();
+                startActivity(new Intent(PreviewActivity.this, ExampleMvp.class));
 //                if(isPreviewing){
 //                    cameraManager.stopPreview();
 //                    isPreviewing = false;
