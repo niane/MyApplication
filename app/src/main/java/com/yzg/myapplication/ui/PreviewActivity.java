@@ -42,10 +42,11 @@ public class PreviewActivity extends AppCompatActivity {
         btnJump.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewGroup.LayoutParams params = autoPreview.getLayoutParams();
-                params.height = 720;
-                params.width = 480;
-                autoPreview.requestLayout();
+                cameraHelper.setAspectRatio(5/3f);
+//                ViewGroup.LayoutParams params = autoPreview.getLayoutParams();
+//                params.height = 320;
+//                params.width = 480;
+//                autoPreview.requestLayout();
 //                startActivity(new Intent(PreviewActivity.this, ExampleMvp.class));
 //                if(isPreviewing){
 //                    cameraManager.stopPreview();
@@ -67,6 +68,7 @@ public class PreviewActivity extends AppCompatActivity {
         super.onResume();
 //        autoPreview.onResume();
         Log.e(Tag, "onresume");
+//        cameraHelper.setDisplayOriention(getWindow().getWindowManager().getDefaultDisplay().getRotation());
         cameraHelper.start();
     }
 

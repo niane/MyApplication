@@ -21,6 +21,7 @@ public class TexturePreview extends TextureView implements TextureView.SurfaceTe
     private static final String Tag = TexturePreview.class.getSimpleName();
     private int mWidth, mHeight;
     private SurfaceChangedCallback changedCallback;
+    private float mAspectRatio;
 
     public TexturePreview(Context context) {
         super(context);
@@ -43,6 +44,35 @@ public class TexturePreview extends TextureView implements TextureView.SurfaceTe
         init();
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.e(Tag, "onMeasure");
+        if(mAspectRatio != 0) {
+            final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+            final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+
+            if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY) {
+                int height = (int) (MeasureSpec.getSize(widthMeasureSpec) * mAspectRatio);
+                if (heightMode == MeasureSpec.AT_MOST) {
+                    height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
+                }
+                super.onMeasure(widthMeasureSpec,
+                        MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+            } else if (widthMode != MeasureSpec.EXACTLY && heightMode == MeasureSpec.EXACTLY) {
+                int width = (int) (MeasureSpec.getSize(heightMeasureSpec) / mAspectRatio);
+                if (widthMode == MeasureSpec.AT_MOST) {
+                    width = Math.min(width, MeasureSpec.getSize(widthMeasureSpec));
+                }
+                super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                        heightMeasureSpec);
+            } else {
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            }
+        }else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
+    }
+
     private void init(){
         setSurfaceTextureListener(this);
     }
@@ -63,6 +93,12 @@ public class TexturePreview extends TextureView implements TextureView.SurfaceTe
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        this.changedCallback.onAttachedWindow();
+    }
+
+    @Override
     public int getDisplayOrientation() {
         return ViewCompat.getDisplay(this).getRotation();
     }
@@ -78,13 +114,19 @@ public class TexturePreview extends TextureView implements TextureView.SurfaceTe
     }
 
     @Override
-    public void setSurfaceBufferSize(Point size) {
-        if(size.x == mWidth && size.y == mHeight) return;
-
-        mWidth = size.x;
-        mHeight = size.y;
-        getSurfaceTexture().setDefaultBufferSize(size.x, size.y);
+    public void setAspectRatio(float ratio) {
+        mAspectRatio = ratio;
+        requestLayout();
     }
+
+//    @Override
+//    public void setSurfaceBufferSize(Point size) {
+//        if(size.x == mWidth && size.y == mHeight) return;
+//
+//        mWidth = size.x;
+//        mHeight = size.y;
+//        getSurfaceTexture().setDefaultBufferSize(size.x, size.y);
+//    }
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {

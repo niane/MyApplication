@@ -3,6 +3,7 @@ package com.yzg.myapplication.model.camera;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import java.io.IOException;
@@ -13,14 +14,13 @@ import java.io.IOException;
 
 @SuppressWarnings("deprecation")
 public class CameraHelperImpl extends CameraHelper {
+    private static final String TAG = CameraConfigureImpl.class.getSimpleName();
 
     private static final int INVALID_CAMERA_ID = -1;
 
     private Camera mCamera;
 
     private final Camera.CameraInfo mCameraInfo = new Camera.CameraInfo();
-
-    private CameraConfigure mCameraConfigure;
 
     private int mCameraId;
 
@@ -30,6 +30,8 @@ public class CameraHelperImpl extends CameraHelper {
 
     private PreviewCallback mPreviewCallback;
 
+    private int mOriention;
+
     public CameraHelperImpl(OpenedCallback callback, CameraPreview cameraPreview) {
         super(callback, cameraPreview);
         cameraPreview.setSurfaceChangedCallback(new CameraPreview.SurfaceChangedCallback() {
@@ -37,7 +39,31 @@ public class CameraHelperImpl extends CameraHelper {
             public void onSurfaceChanged() {
                 startPreview();
             }
+
+            @Override
+            public void onAttachedWindow() {
+                mCameraConfigure.configureDisplayOriention(mCameraPreview.getDisplayOrientation());
+                mAspectRatio = mCameraConfigure.getOptimalAspectRatio(mAspectRatio);
+                Log.e(TAG, "Configured aspect ratio :" + mAspectRatio);
+                mCameraPreview.setAspectRatio(mAspectRatio);
+            }
         });
+    }
+
+    @Override
+    public void setAspectRatio(float ratio) {
+        if(mAspectRatio == ratio) return;
+        mAspectRatio = ratio;
+        if(isOpened()){
+            mAspectRatio = mCameraConfigure.getOptimalAspectRatio(ratio);
+            Log.e(TAG, "Configured aspect ratio :" + mAspectRatio);
+            mCameraPreview.setAspectRatio(mAspectRatio);
+        }
+    }
+
+    @Override
+    public void setDisplayOriention(int oriention) {
+        mOriention = oriention;
     }
 
     private void chooseCamera() {
@@ -66,30 +92,22 @@ public class CameraHelperImpl extends CameraHelper {
                 }
             });
         }
-
     }
 
     private void configureCamera(){
         //TODO 设置图片尺寸
-        mCameraConfigure.configureDisplayOriention(mCameraPreview.getDisplayOrientation());
+
+        mCameraConfigure.getSupportedPictureSizes();
         Point size = mCameraConfigure.configurePreviewSize(mCameraPreview.getSurfaceWidth(), mCameraPreview.getSurfaceHeight());
-        mCamera.autoFocus(new Camera.AutoFocusCallback() {
-            @Override
-            public void onAutoFocus(boolean success, Camera camera) {
-                if (success) {
-                    camera.cancelAutoFocus();// 只有加上了这一句，才会自动对焦
-                }
-            }
-        });
-//        if(mCameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-//            mCameraPreview.setSurfaceBufferSize(new Point(size.y, size.x));
-//        }else {
-//            mCameraPreview.setSurfaceBufferSize(size);
-//        }
+
+        mCameraConfigure.setAutoFocus(true);
     }
 
     private void startPreview(){
         try {
+
+            if(mCamera == null) return;
+
             if(mShowingPreview){
                 mCamera.stopPreview();
             }

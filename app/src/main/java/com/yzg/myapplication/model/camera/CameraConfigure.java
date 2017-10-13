@@ -20,4 +20,8 @@ public interface CameraConfigure {
     Point configurePreviewSize(int width, int height);
 
     void configureDisplayOriention(int displayOriention);
+
+    void setAutoFocus(boolean autoFocus);
+
+    float getOptimalAspectRatio(float ratio);
 }

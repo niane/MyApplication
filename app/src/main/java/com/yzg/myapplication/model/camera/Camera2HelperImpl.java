@@ -38,6 +38,16 @@ public class Camera2HelperImpl extends CameraHelper {
         super(mOpenedCallback, mCameraPreview);
     }
 
+    @Override
+    public void setAspectRatio(float ratio) {
+
+    }
+
+    @Override
+    public void setDisplayOriention(int oriention) {
+
+    }
+
 //    private CameraDevice.StateCallback mStateCallback = new CameraDevice.StateCallback() {
 //        @Override
 //        public void onOpened(@NonNull CameraDevice camera) {

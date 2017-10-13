@@ -23,9 +23,13 @@ public interface CameraPreview {
 
     int getSurfaceHeight();
 
-    void setSurfaceBufferSize(Point size);
+    void setAspectRatio(float ratio);
+
+//    void setSurfaceBufferSize(Point size);
 
     interface SurfaceChangedCallback{
         void onSurfaceChanged();
+
+        void onAttachedWindow();
     }
 }

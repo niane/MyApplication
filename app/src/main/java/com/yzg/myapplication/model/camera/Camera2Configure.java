@@ -43,4 +43,14 @@ public class Camera2Configure implements CameraConfigure {
     public void configureDisplayOriention(int displayOriention) {
 
     }
+
+    @Override
+    public void setAutoFocus(boolean autoFocus) {
+
+    }
+
+    @Override
+    public float getOptimalAspectRatio(float ratio) {
+        return 0;
+    }
 }

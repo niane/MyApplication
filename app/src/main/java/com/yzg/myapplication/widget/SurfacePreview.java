@@ -20,6 +20,7 @@ public class SurfacePreview extends SurfaceView implements SurfaceHolder.Callbac
     private static final String Tag = SurfacePreview.class.getSimpleName();
     private int mWidth, mHeight;
     private SurfaceChangedCallback changedCallback;
+    private float mAspectRatio;
 
     public SurfacePreview(Context context) {
         super(context);
@@ -40,6 +41,32 @@ public class SurfacePreview extends SurfaceView implements SurfaceHolder.Callbac
     public SurfacePreview(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if(mAspectRatio != 0) {
+            final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+            final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+            if (widthMode == MeasureSpec.EXACTLY && heightMode != MeasureSpec.EXACTLY) {
+                int height = (int) (MeasureSpec.getSize(widthMeasureSpec) * mAspectRatio);
+                if (heightMode == MeasureSpec.AT_MOST) {
+                    height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
+                }
+                super.onMeasure(widthMeasureSpec,
+                        MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+            } else if (widthMode != MeasureSpec.EXACTLY && heightMode == MeasureSpec.EXACTLY) {
+                int width = (int) (MeasureSpec.getSize(heightMeasureSpec) / mAspectRatio);
+                if (widthMode == MeasureSpec.AT_MOST) {
+                    width = Math.min(width, MeasureSpec.getSize(widthMeasureSpec));
+                }
+                super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                        heightMeasureSpec);
+            } else {
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            }
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     private void init(){
@@ -64,6 +91,12 @@ public class SurfacePreview extends SurfaceView implements SurfaceHolder.Callbac
         Log.e(Tag, "surfaceDestroyed");
         mHeight = 0;
         mWidth = 0;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        this.changedCallback.onAttachedWindow();
     }
 
     @Override
@@ -102,11 +135,17 @@ public class SurfacePreview extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     @Override
-    public void setSurfaceBufferSize(Point size) {
-        if(size.x == mWidth && size.y == mHeight) return;
-
-        mWidth = size.x;
-        mHeight = size.y;
-        getHolder().setFixedSize(size.x, size.y);
+    public void setAspectRatio(float ratio) {
+        mAspectRatio = ratio;
+        requestLayout();
     }
+
+//    @Override
+//    public void setSurfaceBufferSize(Point size) {
+//        if(size.x == mWidth && size.y == mHeight) return;
+//
+//        mWidth = size.x;
+//        mHeight = size.y;
+//        getHolder().setFixedSize(size.x, size.y);
+//    }
 }

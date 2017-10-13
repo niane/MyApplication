@@ -4,15 +4,22 @@ package com.yzg.myapplication.model.camera;
  * Created by yzg on 2017/9/25.
  */
 public abstract class CameraHelper {
+    protected CameraConfigure mCameraConfigure;
 
     protected OpenedCallback mOpenedCallback;
 
     protected CameraPreview mCameraPreview;
 
+    protected float mAspectRatio = 4/3f;
+
     public CameraHelper(OpenedCallback mOpenedCallback, CameraPreview mCameraPreview) {
         this.mOpenedCallback = mOpenedCallback;
         this.mCameraPreview = mCameraPreview;
     }
+
+    public abstract void setAspectRatio(float ratio);
+
+    public abstract void setDisplayOriention(int oriention);
 
     abstract boolean isOpened();
 
